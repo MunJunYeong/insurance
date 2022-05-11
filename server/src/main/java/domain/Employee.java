@@ -10,7 +10,5 @@ public class Employee {
     public Insurance insurance;
     public Accident accident;
 
-    public Employee(){
 
-    }
 }

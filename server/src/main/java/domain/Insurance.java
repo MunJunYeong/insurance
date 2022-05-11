@@ -11,7 +11,5 @@ public class Insurance {
     public Contract contract;
     public Accident accident;
 
-    public Insurance(){
 
-    }
 }

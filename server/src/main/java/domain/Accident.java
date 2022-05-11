@@ -11,10 +11,5 @@ public class Accident {
     private boolean lawsuit;
     private int userIdx;
 
-    public Accident(){
-
-    }
-
-
 
 }

@@ -10,7 +10,4 @@ public class Contract {
     private int employeeIdx;
     private int insuranceIdx;
 
-    public Contract(){
-
-    }
 }
