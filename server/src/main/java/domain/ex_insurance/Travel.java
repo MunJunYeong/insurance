@@ -13,6 +13,7 @@ import javax.persistence.Id;
 @Getter
 @Setter
 public class Travel extends Insurance {
+
     @Id
     @GeneratedValue
     private int travelIdx;
@@ -20,5 +21,6 @@ public class Travel extends Insurance {
     private int country;
     private int period;
 
-
+    public void addTravelInsurance() {
+    }
 }

@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
@@ -14,13 +15,13 @@ public class Contract {
     @GeneratedValue
     private int contractIdx;
 
-    private boolean checkUw;
-    private int contractDate;
+    @Enumerated(EnumType.STRING)
+    private CheckUwStatus checkUwStatus;
+
+    private LocalDateTime contractDate;
+
     private String subScription;
     private String suggestion;
-    private int userIdx;
-    private int employeeIdx;
-    private int insuranceIdx;
 
     @ManyToOne
     @JoinColumn(name = "userIdx")
@@ -37,4 +38,20 @@ public class Contract {
     @OneToOne
     @JoinColumn(name = "accidentIdx")
     private Accident accident;
+
+    //    private int userIdx;
+    //    private int employeeIdx;
+    //    private int insuranceIdx;
+
+    public static Contract createContract(User user, Employee employee, Insurance insurance, int contractDate) {
+
+        Contract contract = new Contract();
+        contract.setUser(user);
+        contract.setEmployee(employee);
+        contract.setInsurance(insurance);
+        contract.setCheckUwStatus(CheckUwStatus.READY);
+        contract.setContractDate(LocalDateTime.now());
+
+        return contract;
+    }
 }

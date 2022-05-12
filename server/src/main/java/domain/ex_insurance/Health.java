@@ -19,5 +19,6 @@ public class Health extends Insurance {
 
     private int healthGrade;
 
-
+    public void addHealthInsurance() {
+    }
 }

@@ -13,6 +13,7 @@ import javax.persistence.Id;
 @Getter
 @Setter
 public class Fire extends Insurance {
+
     @Id
     @GeneratedValue
     private int fireIdx;
@@ -20,5 +21,6 @@ public class Fire extends Insurance {
     private int buildingCount;
     private int buildingPrice;
 
-
+    public void addFireInsurance() {
+    }
 }
