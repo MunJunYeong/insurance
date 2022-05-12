@@ -12,7 +12,8 @@ import javax.persistence.*;
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name="dtype")
 @Getter @Setter
-public class Insurance {
+public abstract class Insurance {
+
     @Id
     @GeneratedValue
     private int insuranceIdx;
@@ -30,5 +31,6 @@ public class Insurance {
     @ManyToOne
     @JoinColumn(name="employeeIdx")
     private Employee employee;
+
 
 }

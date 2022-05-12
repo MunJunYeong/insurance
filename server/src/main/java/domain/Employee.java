@@ -12,6 +12,7 @@ import javax.persistence.Id;
 @Getter
 @Setter
 public class Employee {
+
     @Id
     @GeneratedValue
     private int employeeIdx;
