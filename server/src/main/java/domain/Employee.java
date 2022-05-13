@@ -1,6 +1,6 @@
 package domain;
 
-import domain.ex_insurance.Insurance;
+import domain.insurance.Insurance;
 import lombok.Getter;
 import lombok.Setter;
 

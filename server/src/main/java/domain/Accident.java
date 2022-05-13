@@ -1,12 +1,11 @@
 package domain;
 
+import enums.LawsuitStatus;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Getter
@@ -21,6 +20,8 @@ public class Accident {
     private String content;
     private int damagePrice;
     private int insuranceIdx;
+    @Enumerated(EnumType.STRING)
+    private LawsuitStatus lawsuitStatus;
 
     @ManyToOne
     @JoinColumn(name="userIdx")
@@ -30,8 +31,7 @@ public class Accident {
     @JoinColumn(name="employeeIdx")
     private Employee employee;
 
-    @Enumerated(EnumType.STRING)
-    private LawsuitStatus lawsuitStatus;
+
 
 
 }

@@ -1,6 +1,7 @@
 package domain;
 
-import domain.ex_insurance.Insurance;
+import domain.insurance.Insurance;
+import enums.CheckStatus;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -17,7 +18,7 @@ public class Contract {
     private int contractIdx;
 
     @Enumerated(EnumType.STRING)
-    private CheckUwStatus checkUwStatus;
+    private CheckStatus checkUwStatus;
 
     private LocalDateTime contractDate;
 

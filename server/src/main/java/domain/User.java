@@ -1,5 +1,6 @@
 package domain;
 
+import enums.CheckStatus;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -19,8 +20,8 @@ public class User {
     @Embedded
     private Address address;
 
-    private boolean checkSub;
-    private boolean checkSug;
+    private CheckStatus checkSub;
+    private CheckStatus checkSug;
     private String email;
     private String id;
     private String job;

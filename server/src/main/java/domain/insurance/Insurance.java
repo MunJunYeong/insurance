@@ -1,4 +1,4 @@
-package domain.ex_insurance;
+package domain.insurance;
 
 import domain.Accident;
 import domain.Contract;

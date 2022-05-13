@@ -1,4 +1,4 @@
-package domain.ex_insurance;
+package domain.insurance;
 
 import lombok.Getter;
 import lombok.Setter;
