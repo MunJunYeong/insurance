@@ -1,4 +1,4 @@
-package domain.ex_insurance;
+package domain.insurance;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -9,15 +9,18 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Entity
-@DiscriminatorValue("C")
+@DiscriminatorValue("A")
 @Getter
 @Setter
-public class Health extends Insurance {
+public class Car extends Insurance {
 
     @Id
     @GeneratedValue
-    private int healthIdx;
+    private int carIdx;
 
-    private int healthGrade;
+    private int accidentRecord;
+    private int carCount;
+    private String carNo;
+    private int price;
 
 }
