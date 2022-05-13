@@ -1,5 +1,5 @@
 package enums;
 
 public enum LawsuitStatus {
-    PROCEEDING, NOTPROCEEDING
+    PROCEEDING, NOT_PROCEEDING
 }
