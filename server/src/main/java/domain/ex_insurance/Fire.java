@@ -21,6 +21,5 @@ public class Fire extends Insurance {
     private int buildingCount;
     private int buildingPrice;
 
-    public void addFireInsurance() {
-    }
+
 }

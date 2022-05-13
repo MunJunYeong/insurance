@@ -11,6 +11,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 public class Contract {
+
     @Id
     @GeneratedValue
     private int contractIdx;
@@ -39,19 +40,16 @@ public class Contract {
     @JoinColumn(name = "accidentIdx")
     private Accident accident;
 
-    //    private int userIdx;
-    //    private int employeeIdx;
-    //    private int insuranceIdx;
 
-    public static Contract createContract(User user, Employee employee, Insurance insurance, int contractDate) {
-
-        Contract contract = new Contract();
-        contract.setUser(user);
-        contract.setEmployee(employee);
-        contract.setInsurance(insurance);
-        contract.setCheckUwStatus(CheckUwStatus.READY);
-        contract.setContractDate(LocalDateTime.now());
-
-        return contract;
-    }
+//    public static Contract createContract(User user, Employee employee, Insurance insurance, int contractDate) {
+//
+//        Contract contract = new Contract();
+//        contract.setUser(user);
+//        contract.setEmployee(employee);
+//        contract.setInsurance(insurance);
+//        contract.setCheckUwStatus(CheckUwStatus.READY);
+//        contract.setContractDate(LocalDateTime.now());
+//
+//        return contract;
+//    }
 }
