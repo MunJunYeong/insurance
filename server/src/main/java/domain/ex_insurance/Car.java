@@ -23,7 +23,4 @@ public class Car extends Insurance {
     private String carNo;
     private int price;
 
-    public void addCarInsurance() {
-    }
-
 }

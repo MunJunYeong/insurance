@@ -21,6 +21,4 @@ public class Travel extends Insurance {
     private int country;
     private int period;
 
-    public void addTravelInsurance() {
-    }
 }

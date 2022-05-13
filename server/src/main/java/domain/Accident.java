@@ -5,6 +5,8 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -31,10 +33,5 @@ public class Accident {
     @Enumerated(EnumType.STRING)
     private LawsuitStatus lawsuitStatus;
 
-    //    private int employeeIdx;
-    //    private int userIdx;
 
-    //add - 양방향 참조 후 추가
-    public void addAccident(Accident accident) {
-    }
 }

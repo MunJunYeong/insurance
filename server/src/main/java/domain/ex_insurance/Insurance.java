@@ -32,5 +32,4 @@ public abstract class Insurance {
     @JoinColumn(name="employeeIdx")
     private Employee employee;
 
-
 }

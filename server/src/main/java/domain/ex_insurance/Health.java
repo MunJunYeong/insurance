@@ -13,12 +13,11 @@ import javax.persistence.Id;
 @Getter
 @Setter
 public class Health extends Insurance {
+
     @Id
     @GeneratedValue
     private int healthIdx;
 
     private int healthGrade;
 
-    public void addHealthInsurance() {
-    }
 }
