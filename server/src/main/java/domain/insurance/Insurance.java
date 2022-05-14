@@ -16,7 +16,7 @@ public abstract class Insurance {
 
     @Id
     @GeneratedValue
-    private int insuranceIdx;
+    private Long insuranceIdx;
 
     private String content;
     private int fee;

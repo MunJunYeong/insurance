@@ -16,7 +16,7 @@ public class Fire extends Insurance {
 
     @Id
     @GeneratedValue
-    private int fireIdx;
+    private Long fireIdx;
 
     private int buildingCount;
     private int buildingPrice;

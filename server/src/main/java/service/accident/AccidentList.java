@@ -3,19 +3,20 @@ package service.accident;
 import domain.Accident;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public interface AccidentList {
 
     //Create
-    public void addAccident(); //userIdx, employeeIdx,
+    public void addAccident(Accident accident); //userIdx, employeeIdx,
 
     //Read
-    public ArrayList<Accident> findAccidentList();
-    public Accident findAccident();
+    public List<Accident> findAccidentList();
+    public Accident findAccident(Long accidentIdx);
 
     //Update
-    public void modifyCompensation(int accidentIdx); //보상금액 책정
-    public void modifyCheckAccident(int accidentIdx);
-    public void modifyLawsuit(int accidentIdx);//소송 신고시
+    public void modifyCompensation(Long accidentIdx, int compensationPrice); //보상금액 책정
+    public void modifyCheckAccident(Long accidentIdx);
+    public void modifyLawsuit(Long accidentIdx);//소송 신고시
 
 }

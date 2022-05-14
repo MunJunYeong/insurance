@@ -16,7 +16,7 @@ public class Health extends Insurance {
 
     @Id
     @GeneratedValue
-    private int healthIdx;
+    private Long healthIdx;
 
     private int healthGrade;
 
