@@ -16,7 +16,7 @@ public class Car extends Insurance {
 
     @Id
     @GeneratedValue
-    private int carIdx;
+    private Long carIdx;
 
     private int accidentRecord;
     private int carCount;

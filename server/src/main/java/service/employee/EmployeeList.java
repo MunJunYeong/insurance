@@ -2,7 +2,7 @@ package service.employee;
 
 import domain.Employee;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public interface EmployeeList {
 
@@ -12,7 +12,7 @@ public interface EmployeeList {
 
 
     //Read
-    public ArrayList<Employee> findSalesmanList();
+    public List<Employee> findSalesmanList();
 
 
     //Update

@@ -1,13 +1,9 @@
 package domain;
 
-import enums.CheckStatus;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Getter
@@ -16,17 +12,17 @@ public class User {
 
     @Id
     @GeneratedValue
-    private int userIdx;
+    private Long userIdx;
 
     @Embedded
     private Address address;
 
     @Enumerated(EnumType.STRING)
-    @ColumnDefault("UNCHECK")
+//    @ColumnDefault("UNCHECK")
     private CheckStatus checkSub;
 
     @Enumerated(EnumType.STRING)
-    @ColumnDefault("UNCHECK")
+//    @ColumnDefault("UNCHECK")
     private CheckStatus checkSug;
 
     private String email;

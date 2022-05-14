@@ -1,10 +1,8 @@
 package domain;
 
 import domain.insurance.Insurance;
-import enums.CheckStatus;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -16,10 +14,10 @@ public class Contract {
 
     @Id
     @GeneratedValue
-    private int contractIdx;
+    private Long contractIdx;
 
     @Enumerated(EnumType.STRING)
-    @ColumnDefault("UNCHECK")
+//    @ColumnDefault("UNCHECK")
     private CheckStatus checkUwStatus;
 
     private LocalDateTime contractDate;

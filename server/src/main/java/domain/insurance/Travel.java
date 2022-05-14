@@ -16,7 +16,7 @@ public class Travel extends Insurance {
 
     @Id
     @GeneratedValue
-    private int travelIdx;
+    private Long travelIdx;
 
     private int country;
     private int period;
