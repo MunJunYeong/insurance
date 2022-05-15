@@ -17,13 +17,13 @@ public class User {
     @Embedded
     private Address address;
 
+    //제안서 확인했는지 default-UNCHECK
     @Enumerated(EnumType.STRING)
-//    @ColumnDefault("UNCHECK")
-    private CheckStatus checkSub;
-
-    @Enumerated(EnumType.STRING)
-//    @ColumnDefault("UNCHECK")
     private CheckStatus checkSug;
+
+    //청약서 했는지 default-UNCHECK
+    @Enumerated(EnumType.STRING)
+    private CheckStatus checkSub;
 
     private String email;
     private String id;
