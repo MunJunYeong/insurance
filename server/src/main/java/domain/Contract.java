@@ -22,7 +22,12 @@ public class Contract {
 
     private LocalDateTime contractDate;
 
+    @Enumerated(EnumType.STRING)
+    private CheckUw checkUw;
+
+    //청약서
     private String subscription;
+    //제안서
     private String suggestion;
 
     @ManyToOne
