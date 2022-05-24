@@ -1,24 +1,51 @@
-import { createRouter, createWebHashHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
+/* eslint-disable */
+import Vue from 'vue'
+import VueRouter from 'vue-router'
+
+import core from '../views/core/layout/CoreLayout.vue'
+import home from '../views/core/MainHome.vue'
+
+
+import auth from '../views/auth/layout/AuthLayout.vue'
+import signIn from '../views/auth/SignIn.vue'
+import signUp from '../views/auth/SignUp.vue'
+
+
+Vue.use(VueRouter)
 
 const routes = [
   {
     path: '/',
-    name: 'home',
-    component: HomeView
+    redirect: '/home', // 초기 진입 페이지 설정
   },
   {
-    path: '/about',
-    name: 'about',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
-  }
+    path: '/auth',
+    component: auth,
+    children : [
+      {
+        path : 'signIn',
+        component : signIn,
+      },
+      {
+        path : 'signUp',
+        component : signUp,
+      }
+    ]
+  },
+  {
+    path: '/',
+    component: core,
+    children : [
+      {
+        path : 'home',
+        component : home,
+      },
+    ]
+  },
+
 ]
 
-const router = createRouter({
-  history: createWebHashHistory(),
+const router = new VueRouter({
   routes
 })
 
