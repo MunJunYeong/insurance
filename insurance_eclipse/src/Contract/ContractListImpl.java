@@ -34,6 +34,23 @@ public class ContractListImpl implements ContractList{
 		return contractDao.deleteContract(contractIdx);
 	}
 
+	@Override
+	public void modifyCheckSug(Long contractIdx) {
+		contractDao.modifyCheckSug(contractIdx);
+	}
+	@Override
+	public void modifyCheckSub(Long contractIdx) {
+		contractDao.modifyCheckSub(contractIdx);
+	}
+	@Override
+	public void modifyCheckUw(Long contractIdx) {
+		contractDao.modifyCheckUw(contractIdx);
+	}
+	@Override
+	public void modifyCompleted(Long contractIdx) {
+		contractDao.modifyCompleted(contractIdx);
+	}
+
 }
 
  

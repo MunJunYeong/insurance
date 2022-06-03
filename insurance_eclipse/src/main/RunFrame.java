@@ -36,22 +36,22 @@ public class RunFrame {
 				PLogin pLogin = new PLogin(this.lists);
 				////////////////////// 사용자 장착//////////////////////
 				String type = pLogin.getType();
-				switch(type) {
-					case "null" : 
-						System.out.println("일치하는 회원정보가 존재하지 않습니다.");
-						break;
-					case "user" :
-						this.user = pLogin.getUser();
-						runUser(this.user, this.lists);
-						break;
-					case "employee" :
-						this.employee = pLogin.getEmployee();
-						runEmployee(this.employee, this.lists);
-						break;
-					default :
-						System.out.println("not match account");
-						break;
-				}
+				if(type == null) System.out.println("일치하는 회원정보가 존재하지 않습니다.");
+				else 
+					switch(type) {
+						case "user" :
+							this.user = pLogin.getUser();
+							runUser(this.user, this.lists);
+							break;
+						case "employee" :
+							this.employee = pLogin.getEmployee();
+							runEmployee(this.employee, this.lists);
+							break;
+						default :
+							System.out.println("not match account");
+							break;
+					}
+				break;
 			case 2:
 				PSignUp pSignUp = new PSignUp(this.lists);
 				PLogin pLogin2 = new PLogin(this.lists);

@@ -25,6 +25,7 @@ public class PUser {
 		boolean check = false;
 
 		System.out.println("---------------USER---------------");
+		System.out.println();
 		System.out.println(this.user.getName() + "님이 접속했습니다.");
 		while (!check) {
 			System.out.println("1. 제안서 확인/승인하기");
@@ -67,15 +68,14 @@ public class PUser {
 
 	public long CheckSuggestion(Long userIdx) {
 		List<Contract> contractList = this.lists.getUserContract(userIdx);
-		String message = null;
-		for(Contract contract : contractList) {
-			message = contract.getContractIdx() + "     " + contract.getUserIdx() + "     " + contract.getSuggestion();
-			System.out.println(message);
-		}
-		if(message == null) {
+		if(contractList.size() == 0) {
 			System.out.println("아직 보험 설계사로부터 받은 제안서가 존재하지 않습니다.");
 			System.out.println();
 			return -1;
+		}
+		for(Contract contract : contractList) {
+			String message = contract.getContractIdx() + "     " + contract.getUserIdx() + "     " + contract.getSuggestion();
+			System.out.println(message);
 		}
 		//여기서부터 제안서에 대한 승인 내용
 		int contractIdx = Util.IntReader("승인하실 계약 번호를 입력해주세요");
@@ -94,18 +94,20 @@ public class PUser {
 	}
 	public long CheckSubscription(Long userIdx) {
 		List<Contract> contractList = this.lists.getUserContract(userIdx);
+		if(contractList.size() == 0) {
+			System.out.println("요청 온 청약서가 존재하지 않습니다.");
+			System.out.println();
+			return -1;
+		}
 		String message = null;
 		for(Contract contract : contractList) {
 			message = contract.getContractIdx() + "     " + contract.getUserIdx() + "     " + contract.getSubscription();
 			System.out.println(message);
 		}
-		if(message == null) {
-			System.out.println("요청 온 청약서가 존재하지 않습니다.");
-		}
 		//여기서부터 청약서에 대한 승인 내용
 		int contractIdx = Util.IntReader("승인하실 계약 번호를 입력해주세요");
 		if (Util.IntReader("승인하시겠습니까? 승인(1) 미승인(2)") == 1) {
-			Contract contract = new Contract();
+			Contract contract = null;
 			for(Contract temp : contractList) {
 				if(temp.getContractIdx() == contractIdx) {
 					contract = temp;
