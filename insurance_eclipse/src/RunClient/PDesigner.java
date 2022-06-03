@@ -1,5 +1,7 @@
 package RunClient;
 
+import java.util.List;
+
 import DataList.Lists;
 import Employee.Employee;
 import Insurance.Car;
@@ -30,86 +32,84 @@ public class PDesigner {
 			System.out.println("2. 실손 의료비 보험 개발하기");
 			System.out.println("3. 자동차 보험 개발하기");
 			System.out.println("4. 여행 보험 개발하기");
-			int select = Util.IntReader("5.exit");
-			if (select <= 4 && select > 0) {
-				this.lists.getInsuranceList().CreateInsurance(CreateInsurance(select));
-			} else if (select == 5) {
+			int select = Util.IntReader("5. 로그아웃");
+			switch(select) {
+			case 1:
+				addFireInsurance();
+				break;
+			case 2:
+				addHealthInsurance();
+				break;
+			case 3:
+				addCarInsurance();
+				break;
+			case 4:
+				addTravelInsurance();
+				break;
+			case 5:
 				check = true;
-			} else {
+				break;
+			default:
 				System.out.println("Select Error retry");
+				break;
 			}
 		}
 	}
 
-	public Insurance CreateInsurance(int number) {
-		int employeeidx;
-		return null;
-//		switch (number) {
-//		case 1:
-//			Fire fire = new Fire();
-//			fire.setInsuranceIdx((long) this.lists.getInsuranceList().getInsuranceList().size());
-//			fire.setBuildingCount(Util.IntReader("건물개수: "));
-//			fire.setBuildingPrice(Util.IntReader("건물가격: "));
-//			fire.setContent(Util.StringReader("내용: "));
-//			fire.setFee(Util.IntReader("요금: "));
-//			fire.setMaxReward(Util.IntReader("최대 보상금: "));
-//			fire.setPeriod(Util.IntReader("기간: "));
-//			fire.setRate(1);
-//			employeeidx = Util.IntReader("직원번호: ");
-//			fire.setEmployeeIdx(employeeidx);
-//			fire.setEmployee(this.lists.getEmployeeList().findEmployee(employeeidx));
-//			return fire;
-//		case 2:
-//			Health health = new Health();
-//			health.setType("Health");
-//			health.setInsuranceIdx((long) this.lists.getInsuranceList().getInsuranceList().size());
-//			health.setHealthGrade(Util.IntReader("건강 등급: "));
-//			health.setContent(Util.StringReader("내용: "));
-//			health.setFee(Util.IntReader("요금: "));
-//			health.setMaxReward(Util.IntReader("최대 보상금: "));
-//			health.setPeriod(Util.IntReader("기간: "));
-//			health.setRate(1);
-//			employeeidx = Util.IntReader("직원번호: ");
-//			health.setEmployeeIdx(employeeidx);
-//			health.setEmployee(this.lists.getEmployeeList().findEmployee(employeeidx));
-//			return health;
-//		case 3:
-//			Car car = new Car();
-//			car.setType("Car");
-//			car.setInsuranceIdx((long) this.lists.getInsuranceList().getInsuranceList().size());
-//			car.setAccidentRecord(Util.IntReader("사고횟수: "));
-//			car.setCarCount(Util.IntReader("보유 차 대수: "));
-//			car.setCarNo(Util.StringReader("차 번호: "));
-//			car.setPrice(Util.IntReader("차 가격: "));
-//			car.setContent(Util.StringReader("내용: "));
-//			car.setFee(Util.IntReader("요금: "));
-//			car.setMaxReward(Util.IntReader("최대 보상금: "));
-//			car.setPeriod(Util.IntReader("기간: "));
-//			car.setRate(1);
-//			employeeidx = Util.IntReader("직원번호: ");
-//			car.setEmployeeIdx(employeeidx);
-//			car.setEmployee(this.lists.getEmployeeList().findEmployee(employeeidx));
-//			return car;
-//		case 4:
-//			Travel travel = new Travel();
-//			travel.setType("Travel");
-//			travel.setInsuranceIdx((long) this.lists.getInsuranceList().getInsuranceList().size());
-//			travel.setCountry(Util.IntReader("도시등급: "));
-//			travel.setTravelPeriod(Util.IntReader("여행기간: "));
-//			travel.setContent(Util.StringReader("내용: "));
-//			travel.setFee(Util.IntReader("요금: "));
-//			travel.setMaxReward(Util.IntReader("최대 보상금: "));
-//			travel.setPeriod(Util.IntReader("기간: "));
-//			travel.setRate(1);
-//			employeeidx = Util.IntReader("직원번호: ");
-//			travel.setEmployeeIdx(employeeidx);
-//			travel.setEmployee(this.lists.getEmployeeList().findEmployee(employeeidx));
-//			return travel;
-//		default:
-//			System.out.println("--------존재하지 않는 항목입니다---------");
-//			return null;
-//		}
+	private void addTravelInsurance() {
+		Travel travel = new Travel();
+		travel.setContent(Util.StringReader("내용: "));
+		travel.setFee(Util.IntReader("요금: "));
+		travel.setMaxReward(Util.IntReader("최대 보상금: "));
+		travel.setPeriod(Util.IntReader("기간: "));
+		travel.setRate(Util.IntReader("요율: "));
+		travel.setEmployeeIdx(this.employee.getEmployeeIdx());
+		travel.setCountry(Util.StringReader("여행가는 국가"));
+		travel.setPeriod(Util.IntReader("여행 기간"));
+		this.lists.addTravelInsurance(travel);
 	}
+
+	private void addCarInsurance() {
+		Car car = new Car();
+		car.setContent(Util.StringReader("내용: "));
+		car.setFee(Util.IntReader("요금: "));
+		car.setMaxReward(Util.IntReader("최대 보상금: "));
+		car.setPeriod(Util.IntReader("기간: "));
+		car.setRate(Util.IntReader("요율: "));
+		car.setEmployeeIdx(this.employee.getEmployeeIdx());
+		car.setAccidentRecord(Util.IntReader("사고 횟수: "));
+		car.setCarCount(Util.IntReader("보유 차량 수: "));
+		car.setCarNo(Util.StringReader("자동차 번호 "));
+		car.setPrice(Util.IntReader("자동차 가격 "));
+		this.lists.addCarInsurance(car);
+	}
+
+	private void addHealthInsurance() {
+		Health health = new Health();
+		health.setContent(Util.StringReader("내용: "));
+		health.setFee(Util.IntReader("요금: "));
+		health.setMaxReward(Util.IntReader("최대 보상금: "));
+		health.setPeriod(Util.IntReader("기간: "));
+		health.setRate(Util.IntReader("요율: "));
+		health.setEmployeeIdx(this.employee.getEmployeeIdx());
+		health.setHealthGrade(Util.IntReader("건강 등급 : "));
+		this.lists.addHealthInsurance(health);
+	}
+
+	private void addFireInsurance() {
+		Fire fire = new Fire();
+		fire.setContent(Util.StringReader("내용: "));
+		fire.setFee(Util.IntReader("요금: "));
+		fire.setMaxReward(Util.IntReader("최대 보상금: "));
+		fire.setPeriod(Util.IntReader("기간: "));
+		fire.setRate(1);
+		fire.setEmployeeIdx(this.employee.getEmployeeIdx());
+		//fire 부분
+		fire.setBuildingCount(Util.IntReader("건물개수: "));
+		fire.setBuildingPrice(Util.IntReader("건물가격: "));
+		this.lists.addFireInsurance(fire);
+	}
+
 
 	public Lists getLists() {
 		return this.lists;

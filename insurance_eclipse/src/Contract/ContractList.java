@@ -1,11 +1,22 @@
 package Contract;
 
-import java.sql.ResultSet;
+ 
+
+import java.util.List;
+
+ 
 
 public interface ContractList {
-	public ResultSet findContract(Long contractIdx);
-	public ResultSet findContractByUserId(Long userIdx);
+
 	public boolean createContract(Contract contract);
-	public ResultSet getContractList();
+	public List<Contract> getContractList();
 	public boolean deleteContract(Long contractIdx);
+//	public boolean updateContract();
+	
 }
+
+ 
+
+ 
+
+ 

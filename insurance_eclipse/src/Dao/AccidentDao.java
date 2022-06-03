@@ -2,6 +2,8 @@ package Dao;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,127 +20,71 @@ public class AccidentDao extends Dao{
 		int isLawsuitStatus = 0;
 		if(accident.isCheckAccident()) isCheckAccident=1;
 		if(accident.isLawsuitStatus()) isLawsuitStatus=1;
+		LocalDate now = LocalDate.now();
 		String sql = "INSERT INTO insurance.accident(accidenttype, content, accidentDate, damagePrice)"
 				+ " VALUES("+
 						"'" + accident.getAccidenttype()+"', "+
 						"'" + accident.getContent()+"', "+
-						"'" + accident.getAccidentDate()+"', "+
+						"'" + now +"', "+
 						"'" + accident.getDamagePrice()+"');";
-
-		System.out.println(sql);		
 		return super.create(sql);
 	}
 	
-	public ResultSet getAccidentList() {
+	public List<Accident> getAccidentList() {
 		String sql = "SELECT * FROM insurance.accident";
-		System.out.println(sql);		
+		ResultSet rs = super.retrieve(sql);
+		List<Accident> accidentLists = new ArrayList<>();
+		boolean bolcheckAccident = true;
+		boolean bollawsuitStatus = true;
 
-		ResultSet rs = super.retrieve(sql);
-		System.out.println("Success");		
-		return rs;
-    }
-	
-	public ResultSet findOneAccident(Long accidentIdx) {
-		String sql = "SELECT * FROM insurance.accident where accidentIdx=" +
-					"'"+ accidentIdx +"'";
-		System.out.println(sql);
-		ResultSet rs = super.retrieve(sql);
-		
-		return rs;
-
-    }
-	 public boolean modifyCompensation(Long accidentIdx, int compensationPrice) {
-			String sql = "update insurance.accident set compensationPrice="
-					+ "'"+ compensationPrice + "' "+ "where accidentIdx="
-					+ "'" + accidentIdx + "';";
-			System.out.println(sql);
-			return super.update(sql);
-	 }
-	 
-	 public boolean modifyCheckAccident(Long accidentIdx) {
-		 //사고 체크
-		String sql = "update insurance.accident set checkAccident="
-				+ "'"+ "1" + "' "+ "where accidentIdx="
-				+ "'" + accidentIdx + "'";
-		System.out.println(sql);
-		return super.update(sql);
-	 }
-	   
-	 public boolean modifyLawsuit(Long accidentIdx) {
-		 //소송 여부
-		String sql = "update insurance.accident set lawsuitStatus="
-				+ "'"+ "1" + "', "+ "where accidentIdx="
-				+ "'" + accidentIdx + "'";
-		System.out.println(sql);
-		return super.update(sql);
-	 }
-	 
-	public ResultSet getcalculatedAccident() {
-	//db에서 보상 산정 완료된 리스트 가져오기
-		String sql = "SELECT * FROM insurance.accident where compensationPrice=" 
-					+ "'" + null + "'";
-		System.out.println(sql);
-		
-		ResultSet rs = super.retrieve(sql);
-		return rs;		
-		
-//		String message = null;
-//		List<String> messages = new ArrayList<>();
-//		try {
-//			while(rs.next()) {
-//			    String idx = rs.getString(1);
-//			    String type = rs.getString(2);
-//			    String content = rs.getString(3);
-//			    String accidentDate = rs.getString(4);
-//			    String damagePrice = rs.getString(5);
-//			    String compensationPrice = rs.getString(6);
-//			    String checkAccident = rs.getString(7);
-//			    String  lawsuitStaus = rs.getString(8);
-//			    
-//			    message = type + " " + content +" " +accidentDate + "" + damagePrice + " " + compensationPrice + " " + checkAccident + " " + lawsuitStaus + "\n" ;
-//			    messages.add(message);
-//			}
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//		}
-	}
-	
-	
-	//////////////////////////////////////////////////////////////////////////
-	//****** 보상지급	,,? *******
-	private void rewardCompensation(long userIdx, int compensationPrice) {
-		String sql = null ;
-		System.out.println(sql);
-		super.update(sql);
- }
-	
-	
-	//이게 뭐야
-	//userIdx 조회시 보상 기록 조회
-	public String getRewardRecord(Long userIdx) {
-		String sql = "SELECT * FROM insurance.accident where userIdx=" +
-				"'"+ userIdx +"'";
-		
-		ResultSet rs = super.retrieve(sql);
-		String message = null;
 		try {
 			while(rs.next()) {
 			    String idx = rs.getString(1);
+			    String type = rs.getString(2);
+			    String content = rs.getString(3);
+			    String accidentDate = rs.getString(4);
 			    String damagePrice = rs.getString(5);
 			    String compensationPrice = rs.getString(6);
-				message = idx+ " "+ "\n" + "손상금액: " + damagePrice + "\n" + "보상금액: "+compensationPrice +  "\n" ;
+			    String userIdx = rs.getString(7);
+			    String insuranceIdx = rs.getString(8);
+			    String employeeIdx = rs.getString(9);
+			    String checkAccident = rs.getString(10);
+			    String  lawsuitStaus = rs.getString(11);
+			    
+			    if(checkAccident.equals("0")) {
+			    	bolcheckAccident= false;
+			    }
+			    if(lawsuitStaus.equals("0")) {
+			    	bollawsuitStatus= false;
+			    }
+
+			    Accident accident = new Accident();
+			    accident.setAccidentIdx(Long.parseLong(idx));
+			    accident.setAccidenttype(type);
+			    accident.setContent(content);
+			    accident.setAccidentDate(LocalDate.parse(accidentDate, DateTimeFormatter.ISO_DATE));
+			    accident.setDamagePrice(Integer.parseInt(damagePrice));
+			    accident.setCompensationPrice(Integer.parseInt(compensationPrice));
+			    accident.setUserIdx(Long.parseLong(userIdx));
+			    accident.setInsuranceIdx(Long.parseLong(insuranceIdx));
+			    accident.setEmployeeIdx(Long.parseLong(employeeIdx));
+			    accident.setCheckAccident(bolcheckAccident);
+			    accident.setLawsuitStatus(bollawsuitStatus);
+			    
+			    accidentLists.add(accident);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-			
-		return message;
-	}
-	
+		return accidentLists;
+    }
+
 	public boolean deleteAccident(Long accidentIdx ) {
 		String sql = "delete from insurance.accident where accidentIdx=" +
 				"'"+ accidentIdx +"'";
-		System.out.println(sql);		
 		return super.delete(sql);
 	}
+	
+	
+	
 }

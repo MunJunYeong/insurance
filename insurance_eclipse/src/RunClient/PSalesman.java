@@ -1,8 +1,18 @@
 package RunClient;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
+
 import Contract.Contract;
 import DataList.Lists;
 import Employee.Employee;
+import Insurance.Car;
+import Insurance.Fire;
+import Insurance.Health;
+import Insurance.Insurance;
+import Insurance.Travel;
 import User.User;
 import global.Util;
 
@@ -15,7 +25,6 @@ public class PSalesman {
 
 		this.employee = employee;
 		this.lists = lists;
-
 		// SalesMan
 		SalesmanMain();
 	}
@@ -25,85 +34,137 @@ public class PSalesman {
 		while (!check) {
 			System.out.println("---------------SalesMan---------------");
 			System.out.println("1. 고객 리스트 확인하기");
-			int select = Util.IntReader("2. 최종 계약 리스트 확인/승인하기");
-			// 1번 클릭시.
-			if (select == 1) {
+			System.out.println("2. 최종 계약 리스트  승인하기");
+			System.out.println("3. 완성 계약 리스트 확인하기");
+			int select = Util.IntReader("로그아웃");
+			
+			switch (select) {
+			case 1:
 				CheckUserList();
-			} else if (select == 2) {
+				break;
+			case 2:
 				ShowFinalContract();
-			} else if (select == 3) {
+				break;
+			case 3:
+				showCompleteContract();
+				break;
+			case 4:
 				check = true;
-			} else {
+				break;
+			default :
 				System.out.println("Select Error retry");
 			}
 		}
 	}
 
+	
+
 	// 1번 클릭시
 	public void CheckUserList() {
-
 		System.out.println("---------------User List---------------");
-		for (int i = 0; i < this.lists.getUserList().getUserList().size(); i++) {
-			System.out.println(this.lists.getUserList().getInfo(i));
+		StringBuilder sb = new StringBuilder();
+		for (int i = 0; i < this.lists.getUserList().size(); i++) {
+			User temp = this.lists.getUserList().get(i);
+			
+			sb.append(temp.getUserIdx() + " ").append(temp.getName() + " ").append(temp.getEmail() + " ").append(temp.getJob() + "\n");
 		}
+		System.out.print(sb);
 		System.out.println("---------------Select---------------");
 		// next
-		Contract contract = new Contract();
-//		contract.setUser(this.lists.getUserList().findUser(Util.IntReader("제안서를 작성하실 고객 번호를 입력해주세요.")));
-//		contract.setEmployee(employee);
-
-//		Suggestion suggestion = new Suggestion(this.lists.getContractList().getContractList().size(),
-//				Util.StringReader("InsuranceType: "), Util.StringReader("제안서 내용을 입력해주세요."));
-//		contract.setSuggestion(suggestion);
-
-		//만약 청약서 제안서 따로 작성을 원한다면 제안서 저장후 리스트에 저장하는데 청약서 작성할때 만약 기존 작성이 잇다면 이어서 해야하고 없으면 청약서 작성을 막아야함.
-	
-			System.out.println("청약서 작성을 시작합니다.");
-			// next
-//			Subscription subscription = new Subscription(this.lists.getContractList().getContractList().size(),
-//					Util.StringReader("InsuranceType: "), Util.IntReader("period: "), Util.IntReader("maxReward: "));
-			
-			
-			double fee = Util.IntReader("기본 요금 : ");
-			
-			
-//			if(contract.getInsurance().getType().equals("Car")) {
-//				fee= fee*findCarRate(Util.IntReader("사고횟수"), Util.IntReader("차 대수"), Util.IntReader("차 가격"));
-//			}else if(contract.getInsurance().getType().equals("Fire")) {
-//				fee= fee*findFireRate(Util.IntReader("빌딩 개수: "),Util.IntReader("빌딩 가격: "));
-//			}else if(contract.getInsurance().getType().equals("Health")) {
-//				fee= fee*findHealthRate(Util.IntReader("건강 등급:"));
-//			}else {
-//				fee= fee*findTravelRate(Util.IntReader("여행국가등급: "), Util.IntReader("여행 기간(날짜수): "));
-//			}
-			System.out.println("요율 계산을 적용합니다.");
-			
-			
-//			contract.getInsurance().setFee((int)fee);
-//			contract.setSubscription(subscription);
-			this.lists.getContractList().CreateContract(contract);
+		int userIdx = Util.IntReader("제안서와 청약서를 작성할 고객 번호를 입력해주세요.");
 		
+		int insuranceType = Util.IntReader("제안할 보험 종류를 선택해주세요. 화재(1), 자동차(2), 건강(3), 여행(4)");
+		printInsurace(insuranceType);
+		int insuranceIdx = Util.IntReader("보험 번호를 입력해주세요.");
+		String suggestion = Util.StringReader("제안서 내용을 입력해주세요.");
+		String subscription = Util.StringReader("청약서 내용을 입력해주세요.");
+	
+		Contract contract = new Contract();
+		contract.setUserIdx((long) userIdx);
+		contract.setSuggestion(suggestion);
+		contract.setSubscription(subscription);
+		contract.setInsuranceIdx((long) insuranceIdx);
+		contract.setEmployeeIdx(employee.getEmployeeIdx());
+		String dateString = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")); 
+		LocalDate time =LocalDate.parse(dateString);
+		contract.setCreated(time); 
+		this.lists.addContract(contract);
+		//만약 청약서 제안서 따로 작성을 원한다면 제안서 저장후 리스트에 저장하는데 청약서 작성할때 만약 기존 작성이 잇다면 이어서 해야하고 없으면 청약서 작성을 막아야함.
+	}
+
+	private void printInsurace(int insuranceType) {
+		switch(insuranceType) {
+		case 1 :
+			List<Fire> fireList = this.lists.getFireList();
+			if(fireList.size() != 0) {
+				for(Insurance insurance : fireList) {
+					System.out.println(insurance.getInsuranceIdx() + "  "+ insurance.getRate()
+					 + "  "+ insurance.getFee());
+				}
+			}else {
+				System.out.println("보험이 아직 개발되지 않았습니다.");
+			}
+			break;
+		case 2 :
+			List<Car> carList = this.lists.getCarList();
+			if(carList.size() != 0) {
+				for(Insurance insurance : carList) {
+					System.out.println(insurance.getInsuranceIdx() + "  "+ insurance.getRate()
+					 + "  "+ insurance.getFee());
+				}
+			}else {
+				System.out.println("보험이 아직 개발되지 않았습니다.");
+			}
+			break;
+		case 3 :
+			List<Health> healthList = this.lists.getHealthList();
+			if(healthList.size() != 0) {
+				for(Insurance insurance : healthList) {
+					System.out.println(insurance.getInsuranceIdx() + "  "+ insurance.getRate()
+					 + "  "+ insurance.getFee());
+				}
+			}else {
+				System.out.println("보험이 아직 개발되지 않았습니다.");
+			}
+			break;
+		case 4 :
+			List<Travel> travelList = this.lists.getTravelList();
+			if(travelList.size() != 0) {
+				for(Insurance insurance : travelList) {
+					System.out.println(insurance.getInsuranceIdx() + "  "+ insurance.getRate()
+					 + "  "+ insurance.getFee());
+				}
+			}else {
+				System.out.println("보험이 아직 개발되지 않았습니다.");
+			}
+			break;
+		default :
+			break;
+		}
 	}
 
 	// 2번 클릭
 	public void ShowFinalContract() {
 		System.out.println("---------------Final Contract List---------------");
-//		for (int i = 0; i < this.lists.getContractList().getContractList().size(); i++) {
-//			if (this.lists.getContractList().findContract(i).isFinalContract() == true) {
-//				System.out.println(this.lists.getContractList().findContract(i).getInfo());
-//			}
-//		}
-
-		// 승인
-		long idx = this.lists.getContractList().findContract(Util.IntReader("승인할 계약 번호를 입력하세요 : ")).getContractIdx();
-
-//		this.lists.getContractList().findContract(Math.toIntExact(idx)).setFinishContract(true,
-//				this.lists.getInsuranceList().findInsurance(Math.toIntExact(idx)).getPeriod());
-
+		List<Contract> contractList = this.lists.getFinalContract();
+		for(Contract contract : contractList) {
+			System.out.println(contract.getContractIdx() + "   "+ contract.getUserIdx()  + "   "+ 
+					contract.getEmployeeIdx()
+			);
+		}
+		this.lists.finishingContract(Util.IntReader("최종 승인할 계약 번호를 입력해주세요."));
 		System.out.println("최종 계약 처리되었습니다.");
-
 	}
-
+	private void showCompleteContract() {
+		System.out.println("---------------Complete Contract List---------------");
+		List<Contract> contractList = this.lists.getCompleteContract();
+		for(Contract contract : contractList) {
+			System.out.println(contract.getContractIdx() + "   "+ contract.getUserIdx()  + "   "+ 
+					contract.getEmployeeIdx()
+			);
+		}
+	}
+	
 	public Lists getLists() {
 		return this.lists;
 	}
@@ -144,7 +205,7 @@ public class PSalesman {
 		} else {
 			priceRate = 2.6;
 		}
-
+		
 		double result = (accidentRate + carCountRate + priceRate) / 3;
 		return result;
 	}

@@ -5,11 +5,6 @@ public class Health extends Insurance {
     private Long insuranceIdx;
     private int healthGrade;
     
-	public Health(Long insuranceIdx, int healthGrade) {
-		super();
-		this.insuranceIdx = insuranceIdx;
-		this.healthGrade = healthGrade;
-	}
 	
 	public Long getInsuranceIdx() {
 		return insuranceIdx;
