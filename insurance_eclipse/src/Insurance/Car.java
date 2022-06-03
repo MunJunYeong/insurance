@@ -4,19 +4,12 @@ public class Car extends Insurance {
 
 
     private Long insuranceIdx;
-
     private int accidentRecord;
     private int carCount;
     private String carNo;
     private int price;
     
-	public Car(Long insuranceIdx, int accidentRecord, int carCount, String carNo, int price) {
-		super();
-		this.insuranceIdx = insuranceIdx;
-		this.accidentRecord = accidentRecord;
-		this.carCount = carCount;
-		this.carNo = carNo;
-		this.price = price;
+	public Car() {
 	}
 	
 	public Long getInsuranceIdx() {

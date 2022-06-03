@@ -1,33 +1,27 @@
 package Employee;
 
-import java.sql.ResultSet;
-import java.util.ArrayList;
-
+import java.util.List;
 import Dao.EmployeeDao;
-import User.UserListImpl;
-import global.Util;
 
 public class EmployeeListImpl implements EmployeeList {
-
 	private EmployeeDao employeeDao = new EmployeeDao();
 	
 	public EmployeeListImpl() {
 	}
 
-	public ResultSet getEmployeeList() {
-		ResultSet rs = employeeDao.getEmployeeList();
-		return rs;
+	
+	@Override
+	public List<Employee> getEmployeeList() {
+		List<Employee> employeeList = employeeDao.getEmployeeList();
+		return employeeList;
 	}
 
-	public ResultSet findEmployee(Long employeeIdx) {
-		ResultSet rs = employeeDao.findOneEmployee(employeeIdx);
-		return rs;
-	}
-
+	@Override
 	public boolean SignUp(Employee employee) {
 		return employeeDao.addEmployee(employee);
 	}
-	
+
+	@Override	
 	public boolean deleteEmployee(Long employeeIdx) {
 		return employeeDao.deleteEmployee(employeeIdx);
 	}

@@ -1,11 +1,19 @@
 package Accident;
 
-import java.sql.ResultSet;
+ 
+
+import java.util.List;
+
+ 
 
 public interface AccidentList {
 
 	public boolean createAccident(Accident accident);
-	public ResultSet getAccidentList();
-	public ResultSet findAccident(Long accidentIdx);
+	public List<Accident> getAccidentList();
 	public boolean deleteAccident(Long accidentIdx);
+	
 }
+
+ 
+
+ 

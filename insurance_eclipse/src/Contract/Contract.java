@@ -21,6 +21,8 @@ public class Contract {
     private Long employeeIdx; //foreign key
     private Long insuranceIdx; //foreign key
 	
+    private boolean completed;
+   
 	public Long getContractIdx() {
 		return contractIdx;
 	}
@@ -87,6 +89,12 @@ public class Contract {
 	public void setInsuranceIdx(Long insuranceIdx) {
 		this.insuranceIdx = insuranceIdx;
 	}
-    
-    
+	 
+	public boolean isCompleted() {
+		return completed;
+	}
+	public void setCompleted(boolean completed) {
+		this.completed = completed;
+	} 
+
 }

@@ -6,13 +6,6 @@ public class Fire extends Insurance {
     private int buildingCount;
     private int buildingPrice;
     
-    
-	public Fire(Long insuranceIdx, int buildingCount, int buildingPrice) {
-		super();
-		this.insuranceIdx = insuranceIdx;
-		this.buildingCount = buildingCount;
-		this.buildingPrice = buildingPrice;
-	}
 	
 	public Long getInsuranceIdx() {
 		return insuranceIdx;

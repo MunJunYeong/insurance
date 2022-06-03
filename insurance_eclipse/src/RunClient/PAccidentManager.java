@@ -10,7 +10,6 @@ public class PAccidentManager {
 	private Lists lists;
 
 	public PAccidentManager(Employee employee, Lists lists) {
-
 		this.lists = lists;
 		this.employee = employee;
 		AccidentManagerMain();
@@ -28,9 +27,9 @@ public class PAccidentManager {
 				CheckAccidentList();
 				int accidentNum = Util.IntReader("사고 번호를 입력해주세요.");
 				if (Util.IntReader("승인/거부 여부를 정하세요.(승인 시 1, 거부 시 2") == 1) {
-//					this.lists.getAccidentList().findAccident(accidentNum).setCheck(true);
+//					this.lists.modifyCheckAccident((long) accidentNum);
 				} else {
-//					this.lists.getAccidentList().findAccident(accidentNum).setCheck(false);
+					System.out.println(accidentNum + "번의 사고는 거부되었습니다.");
 				}
 			} else if(select == 2 ) {
 				check =true;
@@ -43,9 +42,6 @@ public class PAccidentManager {
 	}
 	
 	public boolean CheckAccidentList() {
-		for (int i = 0; i < this.lists.getAccidentList().getAccidentList().size(); i++) {
-//			System.out.println(this.lists.getAccidentList().findAccident(i).getInfo());
-		}
 		return true;
 	}
 	

@@ -1,5 +1,8 @@
 package main;
 
+import java.util.List;
+
+import Dao.InsuranceDao;
 import DataList.Lists;
 import Employee.Employee;
 import RunClient.PAccidentManager;
@@ -29,22 +32,26 @@ public class RunFrame {
 		while (!start) {
 			int select = Util.IntReader("1. 로그인 \n2. 회원가입 \n3. exit");
 			switch(select) {
-			
 			case 1:
 				PLogin pLogin = new PLogin(this.lists);
 				////////////////////// 사용자 장착//////////////////////
-				if(pLogin.getType() == null) {
-					System.out.println("일치하는 회원정보가 존재하지 않습니다.");
-				}else if (pLogin.getType().equals("user")) {
-					this.user = pLogin.getUser();
-					runUser(this.user, this.lists);
-				} else if (pLogin.getType().equals("employee")) {
-					this.employee = pLogin.getEmployee();
-					runEmployee(this.employee, this.lists);
-				} else {
-					System.out.println("not match account");
+				String type = pLogin.getType();
+				switch(type) {
+					case "null" : 
+						System.out.println("일치하는 회원정보가 존재하지 않습니다.");
+						break;
+					case "user" :
+						this.user = pLogin.getUser();
+						runUser(this.user, this.lists);
+						break;
+					case "employee" :
+						this.employee = pLogin.getEmployee();
+						runEmployee(this.employee, this.lists);
+						break;
+					default :
+						System.out.println("not match account");
+						break;
 				}
-				break;
 			case 2:
 				PSignUp pSignUp = new PSignUp(this.lists);
 				PLogin pLogin2 = new PLogin(this.lists);
@@ -63,6 +70,7 @@ public class RunFrame {
 				start = true;
 				break;
 			default :
+				System.out.println("정확한 번호를 입력해주세요.");
 				break;
 			}
 		}
@@ -84,7 +92,7 @@ public class RunFrame {
 			return true;
 		case "DamageAssessor":
 			PDamageAssessor damageAssessor = new PDamageAssessor(employee, lists);
-			this.lists = damageAssessor.getLists();
+//			List<String> messages = damageAssessor.getLists();
 			return true;
 		case "Designer":
 			PDesigner designer = new PDesigner(employee, lists);

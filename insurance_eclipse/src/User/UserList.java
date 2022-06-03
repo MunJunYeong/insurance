@@ -1,12 +1,16 @@
 package User;
 
-import java.sql.ResultSet;
+ 
+
+import java.util.List;
 
 public interface UserList {
 
-	public ResultSet findUser(Long userIdx);
 	public boolean SignUp(User user);
+
 	public boolean deleteUser(Long userIdx);
-	public ResultSet getUserList();
-	
+
+	public List<User> getUserList();
+
+//	public boolean updateUser();
 }

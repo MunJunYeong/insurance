@@ -12,29 +12,31 @@ public class PLogin {
 	private User user;
 	private Employee employee;
 	private String type;
-
-	
-	
+	private boolean duplicateId = false;
 	public PLogin(Lists lists) {
 		System.out.println("---------------Login---------------");
 		id = Util.StringReader("ID : ");
 		pw = Util.StringReader("PW : ");
-	
+		type = null;
 		
-		//employee login
-		for (int i = 0; i < lists.getEmployeeList().getEmployeeList().size(); i++) {
-			if (lists.getEmployeeList().getEmployeeList().get(i).getId().equals(this.id)
-					&& lists.getEmployeeList().getEmployeeList().get(i).getPw().equals(this.pw)) {			
-				this.type = "employee";
-				this.employee = lists.getEmployeeList().getEmployeeList().get(i);
+		for(User user : lists.getUserList()) {
+			if(user.getId().equals(id)) {
+				if(user.getPw().equals(pw)) {
+					this.type = "user";
+					this.user = user;
+					duplicateId = true;
+				}
 			}
 		}
-		
-		for (int i = 0; i < lists.getUserList().getUserList().size(); i++) {
-			if (lists.getUserList().getUserList().get(i).getId().equals(this.id)
-					&& lists.getUserList().getUserList().get(i).getPw().equals(this.pw)) {
-				this.type = "user";
-				this.user = lists.getUserList().getUserList().get(i);
+		if(!duplicateId) {
+			for(Employee employee : lists.getEmployeeList()) {
+				if(employee.getId().equals(id)) {
+					if(employee.getPw().equals(pw)) {
+						this.type = "employee";
+						this.employee = employee;
+						duplicateId = true;
+					}
+				}
 			}
 		}
 		

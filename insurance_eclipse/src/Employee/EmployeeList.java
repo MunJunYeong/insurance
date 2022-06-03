@@ -1,12 +1,12 @@
-
 package Employee;
 
-import java.sql.ResultSet;
+
+import java.util.List;
 
 public interface EmployeeList {
-
 	public boolean SignUp(Employee employee);
-	public ResultSet getEmployeeList();
-	public ResultSet findEmployee(Long employeeIdx);
+	public List<Employee> getEmployeeList();
 	public boolean deleteEmployee(Long employeeIdx);
+//	public boolean updateEmployee();
+
 }
