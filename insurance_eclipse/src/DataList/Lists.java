@@ -98,24 +98,40 @@ public class Lists {
 		return this.userList.deleteUser(userIdx);
 	}
 
-
 	//제안서 청약서 체크
 	public void modifyCheckSug(Contract contract) {
-		contract.setCheckSug(true);
+		this.contractList.modifyCheckSug(contract.getContractIdx());
 	}
 	public void modifyCheckSub(Contract contract) {
-		contract.setCheckSub(true);
+		this.contractList.modifyCheckSub(contract.getContractIdx());
+	}
+	//UW 체크
+	public void modifyCheckUw(Contract contract) {
+		this.contractList.modifyCheckUw(contract.getContractIdx());
+	}
+	public void modifyCompleted(Long contractIdx) {
+		this.contractList.modifyCompleted(contractIdx);
 	}
 
 
 	public List<Contract> getUserContract(Long userIdx) {
 		List<Contract> temp = new ArrayList<Contract>();
 		for(Contract contract : this.contractList.getContractList()) {
-			if(contract.getUserIdx() == userIdx)
+			// 이미 true 1의 값을 가지고 있는데도 안먹힘
+			if(contract.getUserIdx() == userIdx && !contract.isCheckSug())
 				temp.add(contract);
 		}
 		return temp;
 	}
+	public List<Contract> getUwContract() {
+		List<Contract> temp = new ArrayList<Contract>();
+		for(Contract contract : this.contractList.getContractList()) {
+			if(contract.isCheckSub() && contract.isCheckSub() && !contract.isCheckUw())
+				temp.add(contract);
+		}
+		return temp;
+	}
+	
 	public List<Contract> getFinalContract() {
 		List<Contract> temp = new ArrayList<Contract>();
 		for(Contract contract : this.contractList.getContractList()) {
@@ -126,23 +142,18 @@ public class Lists {
 	}
 	public List<Contract> getCompleteContract() {
 		List<Contract> temp = new ArrayList<Contract>();
-//		for(Contract contract : this.contractList.getContractList()) {
-//			if(contract.isCompleted())
-//				temp.add(contract);
-//		}
+		for(Contract contract : this.contractList.getContractList()) {
+			if(contract.isCompleted())
+				temp.add(contract);
+		}
 		return temp;
 	}
 
-	public void finishingContract(int contractIdx) {
-		Contract contract;
-		for(Contract temp : this.contractList.getContractList()) {
-			if(temp.getContractIdx() == contractIdx)
-				contract = temp;
-		}
-		//set 마지막 부분 
-//		contract.set
-	}
-	
+
+
+
+
+
 
 
 

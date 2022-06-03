@@ -37,7 +37,6 @@ public class Dao {
 			return false;
 		}
 		else {
-			System.out.println("SUCCESS:INSERT DATA");
 			return true;
 		}
 
@@ -55,7 +54,6 @@ public class Dao {
 			return false;
 		}
 		else {
-			System.out.println("SUCCESS:INSERT DATA");
 			return true;
 		}
 	}
@@ -72,7 +70,6 @@ public class Dao {
 			return false;
 		}
 		else {
-			System.out.println("SUCCESS:INSERT DATA");
 			return true;
 		}
 

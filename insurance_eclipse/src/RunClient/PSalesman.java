@@ -33,10 +33,12 @@ public class PSalesman {
 		boolean check = false;
 		while (!check) {
 			System.out.println("---------------SalesMan---------------");
+			System.out.println();
+			System.out.println(this.employee.getName() + "님이 접속했습니다.");
 			System.out.println("1. 고객 리스트 확인하기");
 			System.out.println("2. 최종 계약 리스트  승인하기");
 			System.out.println("3. 완성 계약 리스트 확인하기");
-			int select = Util.IntReader("로그아웃");
+			int select = Util.IntReader("4. 로그아웃");
 			
 			switch (select) {
 			case 1:
@@ -62,6 +64,7 @@ public class PSalesman {
 	// 1번 클릭시
 	public void CheckUserList() {
 		System.out.println("---------------User List---------------");
+		System.out.println();//이 부분 꾸며주기 |||||||
 		StringBuilder sb = new StringBuilder();
 		for (int i = 0; i < this.lists.getUserList().size(); i++) {
 			User temp = this.lists.getUserList().get(i);
@@ -72,9 +75,12 @@ public class PSalesman {
 		System.out.println("---------------Select---------------");
 		// next
 		int userIdx = Util.IntReader("제안서와 청약서를 작성할 고객 번호를 입력해주세요.");
-		
-		int insuranceType = Util.IntReader("제안할 보험 종류를 선택해주세요. 화재(1), 자동차(2), 건강(3), 여행(4)");
-		printInsurace(insuranceType);
+		//userIdx가 존재하는지도 체크해주는 validation 추가하기
+		int temp = -1;
+		do {
+			int insuranceType = Util.IntReader("제안할 보험 종류를 선택해주세요. 화재(1), 자동차(2), 건강(3), 여행(4)");
+			temp = printInsurace(insuranceType);
+		}while(temp == -1);
 		int insuranceIdx = Util.IntReader("보험 번호를 입력해주세요.");
 		String suggestion = Util.StringReader("제안서 내용을 입력해주세요.");
 		String subscription = Util.StringReader("청약서 내용을 입력해주세요.");
@@ -92,77 +98,100 @@ public class PSalesman {
 		//만약 청약서 제안서 따로 작성을 원한다면 제안서 저장후 리스트에 저장하는데 청약서 작성할때 만약 기존 작성이 잇다면 이어서 해야하고 없으면 청약서 작성을 막아야함.
 	}
 
-	private void printInsurace(int insuranceType) {
-		switch(insuranceType) {
-		case 1 :
-			List<Fire> fireList = this.lists.getFireList();
-			if(fireList.size() != 0) {
-				for(Insurance insurance : fireList) {
-					System.out.println(insurance.getInsuranceIdx() + "  "+ insurance.getRate()
-					 + "  "+ insurance.getFee());
+	private int printInsurace(int insuranceType) {
+		boolean flag = false;
+		while(!flag) {
+			switch(insuranceType) {
+			case 1 :
+				List<Fire> fireList = this.lists.getFireList();
+				if(fireList.size() != 0) {
+					for(Insurance insurance : fireList) {
+						System.out.println(insurance.getInsuranceIdx() + "  "+ insurance.getRate()
+						+ "  "+ insurance.getFee());
+					}
+					flag = true;
+				}else {
+					System.out.println("보험이 아직 개발되지 않았습니다.");
+					return -1;
 				}
-			}else {
-				System.out.println("보험이 아직 개발되지 않았습니다.");
-			}
-			break;
-		case 2 :
-			List<Car> carList = this.lists.getCarList();
-			if(carList.size() != 0) {
-				for(Insurance insurance : carList) {
-					System.out.println(insurance.getInsuranceIdx() + "  "+ insurance.getRate()
-					 + "  "+ insurance.getFee());
+				break;
+			case 2 :
+				List<Car> carList = this.lists.getCarList();
+				if(carList.size() != 0) {
+					for(Insurance insurance : carList) {
+						System.out.println(insurance.getInsuranceIdx() + "  "+ insurance.getRate()
+						+ "  "+ insurance.getFee());
+					}
+					flag = true;
+				}else {
+					System.out.println("보험이 아직 개발되지 않았습니다.");
+					return -1;
 				}
-			}else {
-				System.out.println("보험이 아직 개발되지 않았습니다.");
-			}
-			break;
-		case 3 :
-			List<Health> healthList = this.lists.getHealthList();
-			if(healthList.size() != 0) {
-				for(Insurance insurance : healthList) {
-					System.out.println(insurance.getInsuranceIdx() + "  "+ insurance.getRate()
-					 + "  "+ insurance.getFee());
+				break;
+			case 3 :
+				List<Health> healthList = this.lists.getHealthList();
+				if(healthList.size() != 0) {
+					for(Insurance insurance : healthList) {
+						System.out.println(insurance.getInsuranceIdx() + "  "+ insurance.getRate()
+						+ "  "+ insurance.getFee());
+					}
+					flag = true;
+				}else {
+					System.out.println("보험이 아직 개발되지 않았습니다.");
+					return -1;
 				}
-			}else {
-				System.out.println("보험이 아직 개발되지 않았습니다.");
-			}
-			break;
-		case 4 :
-			List<Travel> travelList = this.lists.getTravelList();
-			if(travelList.size() != 0) {
-				for(Insurance insurance : travelList) {
-					System.out.println(insurance.getInsuranceIdx() + "  "+ insurance.getRate()
-					 + "  "+ insurance.getFee());
+				break;
+			case 4 :
+				List<Travel> travelList = this.lists.getTravelList();
+				if(travelList.size() != 0) {
+					for(Insurance insurance : travelList) {
+						System.out.println(insurance.getInsuranceIdx() + "  "+ insurance.getRate()
+						+ "  "+ insurance.getFee());
+					}
+					flag = true;
+				}else {
+					System.out.println("보험이 아직 개발되지 않았습니다.");
+					return -1;
 				}
-			}else {
-				System.out.println("보험이 아직 개발되지 않았습니다.");
+				break;
+			default :
+				System.out.println("다시 번호를 입력해주세요.");
+				break;
 			}
-			break;
-		default :
-			break;
 		}
+		return 1;
 	}
 
 	// 2번 클릭
 	public void ShowFinalContract() {
 		System.out.println("---------------Final Contract List---------------");
 		List<Contract> contractList = this.lists.getFinalContract();
+		if(contractList.size() == 0) {
+			System.out.println("인수 검사를 시행한 계약이 아직 존재하지 않습니다."); return;
+		}
 		for(Contract contract : contractList) {
 			System.out.println(contract.getContractIdx() + "   "+ contract.getUserIdx()  + "   "+ 
 					contract.getEmployeeIdx()
 			);
 		}
-		this.lists.finishingContract(Util.IntReader("최종 승인할 계약 번호를 입력해주세요."));
+		int contractIdx = Util.IntReader("최종 승인할 계약 번호를 입력해주세요.");
+		//contractIdx validation
+		this.lists.modifyCompleted((long) contractIdx);
 		System.out.println("최종 계약 처리되었습니다.");
+		System.out.println();
 	}
 	private void showCompleteContract() {
 		System.out.println("---------------Complete Contract List---------------");
 		List<Contract> contractList = this.lists.getCompleteContract();
+		if(contractList.size() == 0) {
+			System.out.println("최종 계약 완료된 보험 계약이 아직 존재하지 않습니다."); return;
+		}
 		for(Contract contract : contractList) {
 			System.out.println(contract.getContractIdx() + "   "+ contract.getUserIdx()  + "   "+ 
 					contract.getEmployeeIdx()
 			);
 		}
+		System.out.println();
 	}
 	
 	public Lists getLists() {
