@@ -5,10 +5,6 @@ import java.util.List;
 import Accident.Accident;
 import Contract.Contract;
 import DataList.Lists;
-import Insurance.Car;
-import Insurance.Fire;
-import Insurance.Health;
-import Insurance.Travel;
 import User.User;
 import global.Util;
 
@@ -56,7 +52,7 @@ public class PUser {
 					idx2 = CheckSubscription(user.getUserIdx());
 				}
 				if (idx2 != -2) {
-					System.out.println(idx2 + "번의 계약 제안서가 승인되었습니다.");
+					System.out.println(idx2 + "번의 계약 청약서가 승인되었습니다.");
 				}
 				break;
 			case 3:

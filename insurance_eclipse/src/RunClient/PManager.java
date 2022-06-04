@@ -1,8 +1,5 @@
 package RunClient;
 
-import java.time.LocalDate;
-import java.time.chrono.ChronoLocalDate;
-import java.util.Date;
 import java.util.List;
 
 import Contract.Contract;
@@ -51,7 +48,9 @@ public class PManager {
 			}
 		}
 	}
-
+	private void almostContractList() {
+		List<Contract> contractList = this.lists.getAlmostContractList();
+	}
 	private void ShowPayNotList() {
 		List<Contract> contractList = this.lists.getCheckPayContract();
 		if(contractList.size()== 0) {
@@ -82,9 +81,7 @@ public class PManager {
 			System.out.println(user.getEmail()+ " 메일 전송을 성공했습니다. ");
 		}
 	}
-	private void almostContractList() {
-		
-	}
+
 	
 	public Lists getLists() {
 		return this.lists;
