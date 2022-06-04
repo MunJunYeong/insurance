@@ -45,7 +45,9 @@ public class Lists {
 	public List<Accident> getAccidentList() {
 		return this.accidentList.getAccidentList();
 	}
-	
+	public List<Contract> getContractList() {
+		return this.contractList.getContractList();
+	}
 	// 보험 list 가져오기
 	public List<Fire> getFireList() {
 		return this.insuranceList.getFireInsuranceList();

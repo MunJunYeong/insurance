@@ -175,7 +175,7 @@ public class PUser {
     		  break;
     	  }
       }
-      if(insuranceList.size() == 0) {
+      if(insuranceList == null) {
     	  System.out.println("고객님께서 가입한 보험이 존재하지 않아 사고 신고가 불가능합니다.");
     	  return false;
       }

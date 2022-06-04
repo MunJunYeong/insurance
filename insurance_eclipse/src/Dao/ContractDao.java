@@ -73,7 +73,14 @@ public class ContractDao extends Dao{
 				contract.setCheckSug(bolCheckSug);
 				contract.setCheckUw(bolCheckUw);
 				contract.setCheckPay(bolCheckpay);
-				contract.setUserIdx(Long.parseLong(userIdx));
+				
+				if(userIdx ==null) contract.setUserIdx(null);
+				else contract.setUserIdx(Long.parseLong(userIdx));
+				if(employeeIdx ==null) contract.setEmployeeIdx(null);
+				else contract.setEmployeeIdx(Long.parseLong(employeeIdx));
+				if(insuranceIdx ==null) contract.setInsuranceIdx(null);
+				else contract.setInsuranceIdx(Long.parseLong(insuranceIdx));
+				
 				contract.setEmployeeIdx(Long.parseLong(employeeIdx));
 				contract.setInsuranceIdx(Long.parseLong(insuranceIdx));
 				contract.setCompleted(bolCompleted);

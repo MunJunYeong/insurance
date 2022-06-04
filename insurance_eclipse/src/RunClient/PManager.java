@@ -1,5 +1,7 @@
 package RunClient;
 
+import java.time.LocalDate;
+import java.time.chrono.ChronoLocalDate;
 import java.util.Date;
 
 import Contract.Contract;
@@ -43,16 +45,16 @@ public class PManager {
 		}
 	}
 
-	public boolean ShowPayNotList() {
+	public int ShowPayNotList() {
 
-		for (int i = 0; i < this.lists.getContractList().getContractList().size(); i++) {
-//			if (this.lists.getContractList().findContract(i).isPay() == false) {
-//				System.out.println(this.lists.getContractList().findContract(i).getInfo());
-//			}
+		for (int i = 0; i < this.lists.getContractList().size(); i++) {
+			if (this.lists.getContractList().get(i).isCheckPay() == false) {
+				System.out.println(this.lists.getContractList().get(i).toStringAll());
+			}
 		}
-		Contract selectContract = this.lists.getContractList().findContract(Util.IntReader("미납 이메일 보낼 사용자 번호를 입력하세요."));
-		// SendEmail(selectContract); //이메일보내기
-		return true;
+		int selectContract = Util.IntReader("미납 이메일 보낼 사용자 번호를 입력하세요.");
+		sendEmail(selectContract);
+		return selectContract;
 	}
 
 	public int ManagementContract() {
@@ -60,12 +62,11 @@ public class PManager {
 		// 2번 클릭시
 		// 리스트나오고
 		int idx;
-		Date nowDate = new Date();
-//		for (int i = 0; i < this.lists.getContractList().getContractList().size(); i++) {
-//			if (this.lists.getContractList().findContract(i).getNearFinish().after(nowDate)) {
-//				System.out.println(this.lists.getContractList().findContract(i).getInfo());
-//			}
-//		}
+		for (int i = 0; i < this.lists.getContractList().size(); i++) {
+			if (this.lists.getContractList().get(i).getCreated().isAfter(LocalDate.now())) {
+				System.out.println(this.lists.getContractList().get(i).toStringAll());
+			}
+		}
 		return idx = Util.IntReader("보험 연장 시킬 사용자 번호를 입력하세요.");
 
 	}
