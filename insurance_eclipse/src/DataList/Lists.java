@@ -134,8 +134,7 @@ public class Lists {
 	public List<Contract> getUserContract(Long userIdx) {
 		List<Contract> temp = new ArrayList<Contract>();
 		for(Contract contract : this.contractList.getContractList()) {
-			// 이미 true 1의 값을 가지고 있는데도 안먹힘
-			if(contract.getUserIdx() == userIdx && !contract.isCheckSug())
+			if(!contract.isCheckSug() && contract.getUserIdx() == userIdx)
 				temp.add(contract);
 		}
 		return temp;

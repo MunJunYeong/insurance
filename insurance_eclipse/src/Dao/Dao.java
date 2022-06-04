@@ -16,7 +16,7 @@ public class Dao {
 	public void connect() {
 		 try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
-			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/insurance?serverTimezone=UTC", "root", "lch6683!");
+			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/insurance?serverTimezone=UTC", "root", "mysql");
 		 }catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (SQLException e) {
