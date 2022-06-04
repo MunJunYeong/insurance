@@ -92,20 +92,19 @@ public class ContractDao extends Dao{
 	}
 
 	public boolean modifyCheckSug(Long contractIdx) {
-		String sql = "update insurance.contract set checkSub=1 where insuranceIdx = " + contractIdx + ";";
+		String sql = "update insurance.contract set checkSub=1 where contractIdx = " + contractIdx + ";";
 		return super.update(sql);
 	}
 	public boolean modifyCheckSub(Long contractIdx) {
-		String sql = "update insurance.contract set checkSug=1 where insuranceIdx = " + contractIdx + ";";
+		String sql = "update insurance.contract set checkSug=1 where contractIdx = " + contractIdx + ";";
 		return super.update(sql);
 	}
 	public boolean modifyCheckUw(Long contractIdx) {
-		String sql = "update insurance.contract set checkUw=1 where insuranceIdx = " + contractIdx + ";";
+		String sql = "update insurance.contract set checkUw=1 where contractIdx = " + contractIdx + ";";
 		return super.update(sql);
-		
 	}
 	public boolean modifyCompleted(Long contractIdx) {
-		String sql = "update insurance.contract set completed=1 where insuranceIdx = " + contractIdx + ";";
+		String sql = "update insurance.contract set completed=1 where contractIdx = " + contractIdx + ";";
 		return super.update(sql);
 	}
 }	   

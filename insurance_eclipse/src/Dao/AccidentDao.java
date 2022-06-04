@@ -93,6 +93,11 @@ public class AccidentDao extends Dao{
 		String sql = "update insurance.accident set checkAccident=1 where accidentIdx = " + accidentIdx + ";";
 		return super.update(sql);
 	}
+
+	public boolean modifyCompensationPrice(Long accidentIdx, int price) {
+		String sql = "update insurance.accident set compensationPrice= "+ price  +" 1 where accidentIdx = " + accidentIdx + ";";
+		return super.update(sql);
+	}
 	
 	
 	

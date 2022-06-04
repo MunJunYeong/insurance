@@ -29,7 +29,6 @@ public class PAccidentManager {
 			switch(select) {
 			case 1: 
 				CheckAccidentList();
-				
 				break;
 			case 2:
 				check = true;

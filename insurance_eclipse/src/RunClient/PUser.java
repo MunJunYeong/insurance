@@ -5,7 +5,10 @@ import java.util.List;
 import Accident.Accident;
 import Contract.Contract;
 import DataList.Lists;
-import Insurance.Insurance;
+import Insurance.Car;
+import Insurance.Fire;
+import Insurance.Health;
+import Insurance.Travel;
 import User.User;
 import global.Util;
 
@@ -37,22 +40,22 @@ public class PUser {
          switch(select) {
             case 1:
                System.out.println("------제안서를 확인합니다------");
-               long idx = 0;
-               while(idxCheck(idx)) {
+               long idx = -1;
+               while(!idxCheck(idx)) {
                   idx = CheckSuggestion(user.getUserIdx());
-                  }
-               if(idx == 1) {
-                  System.out.println(idx + "번의 계약 제안서가 승인되었습니다.");
-               }         
+               }
+               if(idx != -2) {
+            	   System.out.println(idx + "번의 계약 제안서가 승인되었습니다.");
+               }
                break;
             case 2: 
                System.out.println("------청약서를 확인합니다------");
-               long idx2 = 0;
-               while(idxCheck(idx2)) {
+               long idx2 = -1;
+               while(!idxCheck(idx2)) {
                   idx2 = CheckSubscription(user.getUserIdx());
-                  }
-               if(idx2 == 1) {
-                  System.out.println(idx2 + "번의 계약 제안서가 승인되었습니다.");
+               }
+               if(idx2 != -2) {
+            	   System.out.println(idx2 + "번의 계약 제안서가 승인되었습니다.");
                }
                break;
             case 3: 
@@ -75,7 +78,7 @@ public class PUser {
       if(contractList.size() == 0) {
          System.out.println("아직 보험 설계사로부터 받은 제안서가 존재하지 않습니다.");
          System.out.println();
-         return -1;
+         return -2;
       }
       System.out.println("계약번호  " +"고객번호   " +"제안서" );
       for(Contract contract : contractList) {
@@ -92,7 +95,7 @@ public class PUser {
                contract = temp;
             }
          }
-         this.lists.modifyCheckSug(contract);
+         this.lists.modifyCheckSug(contract.getContractIdx());
          return contract.getContractIdx();
       }else if(suggestionChoice==2){
          System.out.println("미승인 처리 되었습니다.");
@@ -107,7 +110,7 @@ public class PUser {
       if(contractList.size() == 0) {
          System.out.println("요청 온 청약서가 존재하지 않습니다.");
          System.out.println();
-         return -1;
+         return -2;
       }
       String message = null;
       System.out.println("계약번호  " +"고객번호   " +"청약서" );
@@ -141,8 +144,43 @@ public class PUser {
       System.out.println("사고 신고 내용을 입력해주세요.");
       Accident accident = new Accident();
       accident.setUserIdx(this.user.getUserIdx());
-      accident.setAccidenttype(Util.StringReader("사고 종류: "));
-//      accident.setAccidenttype(Util.StringReader("사고 종류: "));
+      boolean flag = false;
+      List<?> insuranceList = null;
+      while(!flag) {
+    	  int type = Util.IntReader("화재(1), 자동차(2), 생명(3), 여행(4)");
+    	  switch(type) {
+    	  case 1:
+    		  insuranceList = this.lists.getUserFireList(this.user.getUserIdx());
+    		  accident.setAccidenttype("Fire");
+    		  if(insuranceList == null) 
+    		  flag = true;
+    		  break;
+    	  case 2:
+    		  insuranceList = this.lists.getUserCarList(this.user.getUserIdx());
+    		  accident.setAccidenttype("Car");
+    		  flag = true;
+    		  break;
+    	  case 3:
+    		  insuranceList = this.lists.getUserHealthList(this.user.getUserIdx());
+    		  accident.setAccidenttype("Health");
+    		  flag = true;
+    		  break;
+    	  case 4:
+    		  insuranceList = this.lists.getUserTravelList(this.user.getUserIdx());
+    		  accident.setAccidenttype("Travel");
+    		  flag = true;
+    		  break;
+    	  default :
+    		  System.out.println("올바른 번호를 입력해주세요.");
+    		  break;
+    	  }
+      }
+      if(insuranceList.size() == 0) {
+    	  System.out.println("고객님께서 가입한 보험이 존재하지 않아 사고 신고가 불가능합니다.");
+    	  return false;
+      }
+      //사실 여기서 보험 리스트를 보여주는 것이 옳으나 그냥 제일 위에있는 보험으로 자동 연계되어 들어간다 ?
+      
       accident.setContent(Util.StringReader("사고 내용: "));
       accident.setDamagePrice(Util.IntReader("피해 금액: "));
       // 이 고객으로 부터 가입한 보험 가지고오기
@@ -179,11 +217,7 @@ public class PUser {
       return this.lists;
    }
    private boolean idxCheck(long idx) {
-      if(idx==1) {
-         return false;
-      }else if(idx==-1) {
-         return false;
-      }
+	   if(idx == -1)return false;
       return true;
    }
 }
