@@ -69,9 +69,14 @@ public class AccidentDao extends Dao{
 			    accident.setAccidentDate(time);
 			    accident.setDamagePrice(Integer.parseInt(damagePrice));
 			    accident.setCompensationPrice(Integer.parseInt(compensationPrice));
-			    accident.setUserIdx(Long.parseLong(userIdx));
-			    accident.setInsuranceIdx(Long.parseLong(insuranceIdx));
-			    accident.setEmployeeIdx(Long.parseLong(employeeIdx));
+			    
+				if(userIdx ==null) accident.setUserIdx(null);
+				else accident.setUserIdx(Long.parseLong(userIdx));
+				if(employeeIdx ==null) accident.setEmployeeIdx(null);
+				else accident.setEmployeeIdx(Long.parseLong(employeeIdx));
+				if(insuranceIdx ==null) accident.setInsuranceIdx(null);
+				else accident.setInsuranceIdx(Long.parseLong(insuranceIdx));
+				
 			    accident.setCheckAccident(bolcheckAccident);
 			    accident.setLawsuitStatus(bollawsuitStatus);
 			    

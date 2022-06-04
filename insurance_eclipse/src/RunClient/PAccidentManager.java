@@ -47,8 +47,9 @@ public class PAccidentManager {
 		}
 		//이 부분 꾸미기 
 		for(Accident accident : accidentList) {
-			System.out.println(accident.getAccidentIdx() + "  "  + accident.getInsuranceIdx());
+			System.out.println(accident.toStringAll());
 		}
+		
 		boolean flag = false;
 		Accident accident = null;
 		while(!flag) {
@@ -58,11 +59,12 @@ public class PAccidentManager {
 				System.out.println("사고 번호에 해당하는 사고 신고 내역이 없습니다. 다시 입력해주세요.");
 			}else {
 				flag = true;
-				System.out.println(accident.getAccidenttype()  +"사고 내용들 더 보여주면됨 ");
+				System.out.println(accident.getAccidenttype()  + " " + accident.getContent()+ 
+						" " + accident.getAccidentDate()+ " "  + accident.getDamagePrice());
 			}
 		}
 		
-		if (Util.IntReader("승인/거부 여부를 정하세요.(승인 시 1, 거부 시 2") == 1) {
+		if (Util.IntReader("승인/거부 여부를 정하세요.(승인 시 1, 거부 시 2)") == 1) {
 			if(this.lists.modifyCheckAccident(accident.getAccidentIdx())) {
 				System.out.println(accident.getAccidentIdx() +"번의 사고가 성공적으로 승인되었습니다.");
 				System.out.println("해당 사고가 손해 사정사에게 안전하게 전달되었습니다.");
@@ -71,6 +73,10 @@ public class PAccidentManager {
 			System.out.println(accident.getAccidentIdx() + "번의 사고는 거부되었습니다.");
 		}
 		return true;
+	}
+	
+	public Lists getLists(Long accidentIdx) {
+		return this.lists;
 	}
 	
 	public Lists getLists() {

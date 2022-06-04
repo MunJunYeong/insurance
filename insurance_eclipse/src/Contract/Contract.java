@@ -96,5 +96,9 @@ public class Contract {
 	public void setCompleted(boolean completed) {
 		this.completed = completed;
 	} 
-
+	public String toStringAll() {
+        String stringReturn =  this.contractIdx + " " + this.created+ " " +
+    this.checkpay+ " " + this.userIdx+ " " + this.employeeIdx+ " " + this.insuranceIdx;
+        return stringReturn;
+    }
 }

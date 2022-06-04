@@ -68,13 +68,17 @@ public class PSalesman {
 		StringBuilder sb = new StringBuilder();
 		for (int i = 0; i < this.lists.getUserList().size(); i++) {
 			User temp = this.lists.getUserList().get(i);
-			
 			sb.append(temp.getUserIdx() + " ").append(temp.getName() + " ").append(temp.getEmail() + " ").append(temp.getJob() + "\n");
 		}
+		if(this.lists.getUserList().size() == 0) {
+			System.out.println("고객이 존재하지 않습니다.");
+			return;
+	    }
 		System.out.print(sb);
 		System.out.println("---------------Select---------------");
 		// next
-		int userIdx = Util.IntReader("제안서와 청약서를 작성할 고객 번호를 입력해주세요.");
+		int userIdx = Util.IntReader("제안서와 청약서를 작성할 고객 번호를 입력해주세요. 뒤로가기(0)");
+		if(userIdx == 0) return;
 		//userIdx가 존재하는지도 체크해주는 validation 추가하기
 		int temp = -1;
 		do {

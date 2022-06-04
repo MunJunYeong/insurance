@@ -9,7 +9,6 @@ import java.util.List;
 import Dao.ContractDao;
 
  
-
 public class ContractListImpl implements ContractList{
 
 	private ContractDao contractDao = new ContractDao();
