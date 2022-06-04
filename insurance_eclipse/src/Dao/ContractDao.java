@@ -66,7 +66,7 @@ public class ContractDao extends Dao {
 
 				Contract contract = new Contract();
 				contract.setContractIdx(Long.parseLong(contractIdx));
-				String dateString = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+				String dateString = created.formatted(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 				LocalDate time = LocalDate.parse(dateString);
 				contract.setCreated(time);
 				contract.setSubscription(subscription);

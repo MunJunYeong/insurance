@@ -1,8 +1,11 @@
 package DataList;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.Period;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-
 import Accident.Accident;
 import Accident.AccidentList;
 import Accident.AccidentListImpl;
@@ -15,7 +18,6 @@ import Employee.EmployeeListImpl;
 import Insurance.Car;
 import Insurance.Fire;
 import Insurance.Health;
-import Insurance.Insurance;
 import Insurance.InsuranceList;
 import Insurance.InsuranceListImpl;
 import Insurance.Travel;
@@ -152,6 +154,21 @@ public class Lists {
 	}
 
 	// Contract 가져오는 method
+	public List<Contract> getAlmostContractList() {
+		//만기계약은 가입일로부터 30일 이후
+		String dateString = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+		LocalDate time = LocalDate.parse(dateString);
+		List<Contract> temp = new ArrayList<Contract>();
+		for(Contract contract : this.contractList.getContractList()) {
+			//이 부분에서 해줘야됨
+			Period period = Period.between(time, contract.getCreated().plusDays(30));
+			System.out.println(time);
+			System.out.println(contract.getCreated());
+			System.out.println(period.getDays());
+			System.out.println("--------------------");
+		}
+		return null;
+	}
 	public List<Contract> getUserSugContract(Long userIdx) {
 		List<Contract> temp = new ArrayList<Contract>();
 		for (Contract contract : this.contractList.getContractList()) {
@@ -302,6 +319,8 @@ public class Lists {
 		}
 		return res;
 	}
+
+
 
 
 
