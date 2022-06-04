@@ -12,5 +12,7 @@ public interface UserList {
 
 	public List<User> getUserList();
 
+	public User getUser(long userIdx);
+
 //	public boolean updateUser();
 }

@@ -42,7 +42,9 @@ public class Lists {
 	public List<User> getUserList() {
 		return this.userList.getUserList();
 	}
-
+	public User getUser(long userIdx) {
+		return this.userList.getUser(userIdx);
+	}
 	public List<Accident> getAccidentList() {
 		return this.accidentList.getAccidentList();
 	}
@@ -150,7 +152,7 @@ public class Lists {
 	}
 
 	// Contract 가져오는 method
-	public List<Contract> getUserContract(Long userIdx) {
+	public List<Contract> getUserSugContract(Long userIdx) {
 		List<Contract> temp = new ArrayList<Contract>();
 		for (Contract contract : this.contractList.getContractList()) {
 			if (!contract.isCheckSug() && contract.getUserIdx() == userIdx)
@@ -158,7 +160,15 @@ public class Lists {
 		}
 		return temp;
 	}
-
+	public List<Contract> getUserSubContract(Long userIdx) {
+		List<Contract> temp = new ArrayList<Contract>();
+		for (Contract contract : this.contractList.getContractList()) {
+			
+			if (!contract.isCheckSub() && contract.getUserIdx() == userIdx)
+				temp.add(contract);
+		}
+		return temp;
+	}
 	public List<Contract> getUwContract() {
 		List<Contract> temp = new ArrayList<Contract>();
 		for (Contract contract : this.contractList.getContractList()) {
@@ -189,6 +199,15 @@ public class Lists {
 		List<Contract> temp = new ArrayList<Contract>();
 		for(Contract contract : this.getCompleteContract()) {
 			if(!contract.isCheckPay() && contract.getUserIdx() == userIdx) {
+				temp.add(contract);
+			}
+		}
+		return temp;
+	}
+	public List<Contract> getCheckPayContract() {
+		List<Contract> temp = new ArrayList<Contract>();
+		for(Contract contract : this.getCompleteContract()) {
+			if(!contract.isCheckPay()) {
 				temp.add(contract);
 			}
 		}
@@ -283,6 +302,10 @@ public class Lists {
 		}
 		return res;
 	}
+
+
+
+	
 
 
 
