@@ -50,22 +50,8 @@ public class ContractListImpl implements ContractList{
 		contractDao.modifyCompleted(contractIdx);
 	}
 
+	@Override
+	public void modifyCheckPay(Long contractIdx) {
+		contractDao.modifyCheckPay(contractIdx);
+	}
 }
-
- 
-
- 
-
-//	@Override
-
-//	public boolean updateContract() {
-
-//		return contractDao.updateContract();
-
-//	}
-
-	
-
- 
-
- 
