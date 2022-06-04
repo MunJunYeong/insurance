@@ -66,7 +66,7 @@ public class PUW {
 					contract = temp;
 				}
 			}
-			this.lists.modifyCheckUw(contract);
+			this.lists.modifyCheckUw(contract.getContractIdx());
 			System.out.println(contract.getContractIdx() + "번 계약의 인수검사가 성공적으로 수행되었습니다.");
 			System.out.println();
 			return true;

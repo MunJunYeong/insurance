@@ -16,6 +16,7 @@ public interface ContractList {
 	public void modifyCheckSub(Long contractIdx);
 	public void modifyCheckUw(Long contractIdx);
 	public void modifyCompleted(Long contractIdx);
+	public void modifyCheckPay(Long contractIdx);
 	
 }
 
