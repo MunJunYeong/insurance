@@ -73,7 +73,6 @@ public class ContractDao extends Dao{
 				contract.setCheckSug(bolCheckSug);
 				contract.setCheckUw(bolCheckUw);
 				contract.setCheckPay(bolCheckpay);
-				System.out.println(Long.parseLong(userIdx));
 				contract.setUserIdx(Long.parseLong(userIdx));
 				contract.setEmployeeIdx(Long.parseLong(employeeIdx));
 				contract.setInsuranceIdx(Long.parseLong(insuranceIdx));

@@ -41,6 +41,8 @@ public class Lists {
 	public List<User> getUserList() {
 		return this.userList.getUserList();
 	}
+	
+	// 보험 list 가져오기
 	public List<Fire> getFireList() {
 		return this.insuranceList.getFireInsuranceList();
 	}
@@ -57,18 +59,22 @@ public class Lists {
 		return this.employeeList.getEmployeeList();
 	}
 	
+	//회원가입
 	public boolean addEmployee(Employee employee) {
 		return this.employeeList.SignUp(employee);
-	}
-	public boolean addAccident(Accident accident) {
-		return this.accidentList.createAccident(accident);
-	}
-	public boolean addContract(Contract contract) {
-		return this.contractList.createContract(contract);
 	}
 	public boolean addUser(User user) {
 		return this.userList.SignUp(user);
 	}
+	//사고추가
+	public boolean addAccident(Accident accident) {
+		return this.accidentList.createAccident(accident);
+	}
+	//계약 추가
+	public boolean addContract(Contract contract) {
+		return this.contractList.createContract(contract);
+	}
+	// 보험 추가
 	public boolean addCarInsurance(Car car) {
 		return this.insuranceList.addCarInsurance(car);
 	}
@@ -85,20 +91,17 @@ public class Lists {
 	public boolean deleteEmployee(Long employeeIdx) {
 		return this.employeeList.deleteEmployee(employeeIdx);
 	}
-
 	public boolean deleteAccident(Long accidentIdx) {
 		return this.accidentList.deleteAccident(accidentIdx);
 	}
-
 	public boolean deleteContract(Long contractIdx) {
 		return this.contractList.deleteContract(contractIdx);
 	}
-
 	public boolean deleteUser(Long userIdx) {
 		return this.userList.deleteUser(userIdx);
 	}
-
-	//제안서 청약서 체크
+	
+	// Contract method 수정
 	public void modifyCheckSug(Contract contract) {
 		this.contractList.modifyCheckSug(contract.getContractIdx());
 	}
@@ -111,9 +114,14 @@ public class Lists {
 	}
 	public void modifyCompleted(Long contractIdx) {
 		this.contractList.modifyCompleted(contractIdx);
+//		this.contractList.cacluateFee(contractIdx);
+	}
+	public boolean modifyCheckAccident(Long accidentIdx) {
+		return this.accidentList.modifyCheckAccident(accidentIdx);
 	}
 
 
+	// Contract 가져오는 method
 	public List<Contract> getUserContract(Long userIdx) {
 		List<Contract> temp = new ArrayList<Contract>();
 		for(Contract contract : this.contractList.getContractList()) {
@@ -131,7 +139,6 @@ public class Lists {
 		}
 		return temp;
 	}
-	
 	public List<Contract> getFinalContract() {
 		List<Contract> temp = new ArrayList<Contract>();
 		for(Contract contract : this.contractList.getContractList()) {
@@ -148,6 +155,26 @@ public class Lists {
 		}
 		return temp;
 	}
+
+	public List<Accident> getCheckAccidentList() {
+		List<Accident> temp = new ArrayList<Accident>();
+		for(Accident accident : this.accidentList.getAccidentList()) {
+			if(!accident.isCheckAccident()) {
+				temp.add(accident);
+			}
+		}
+		return temp;
+	}
+	public Accident getAccident(long accidentIdx) {
+		Accident temp = null;
+		for(Accident accident : this.accidentList.getAccidentList()) {
+			if(accident.getAccidentIdx() == accidentIdx) {
+				temp = accident;
+			}
+		}
+		return temp;
+	}
+
 
 
 

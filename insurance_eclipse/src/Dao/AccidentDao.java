@@ -3,6 +3,7 @@ package Dao;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,8 +22,9 @@ public class AccidentDao extends Dao{
 		if(accident.isCheckAccident()) isCheckAccident=1;
 		if(accident.isLawsuitStatus()) isLawsuitStatus=1;
 		LocalDate now = LocalDate.now();
-		String sql = "INSERT INTO insurance.accident(accidenttype, content, accidentDate, damagePrice)"
+		String sql = "INSERT INTO insurance.accident(userIdx, accidenttype, content, accidentDate, damagePrice)"
 				+ " VALUES("+
+						"'" + accident.getUserIdx()+"', "+
 						"'" + accident.getAccidenttype()+"', "+
 						"'" + accident.getContent()+"', "+
 						"'" + now +"', "+
@@ -49,7 +51,7 @@ public class AccidentDao extends Dao{
 			    String insuranceIdx = rs.getString(8);
 			    String employeeIdx = rs.getString(9);
 			    String checkAccident = rs.getString(10);
-			    String  lawsuitStaus = rs.getString(11);
+			    String lawsuitStaus = rs.getString(11);
 			    
 			    if(checkAccident.equals("0")) {
 			    	bolcheckAccident= false;
@@ -57,12 +59,14 @@ public class AccidentDao extends Dao{
 			    if(lawsuitStaus.equals("0")) {
 			    	bollawsuitStatus= false;
 			    }
-
+			    String dateString = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")); 
+				LocalDate time =LocalDate.parse(dateString);
+			    
 			    Accident accident = new Accident();
 			    accident.setAccidentIdx(Long.parseLong(idx));
 			    accident.setAccidenttype(type);
 			    accident.setContent(content);
-			    accident.setAccidentDate(LocalDate.parse(accidentDate, DateTimeFormatter.ISO_DATE));
+			    accident.setAccidentDate(time);
 			    accident.setDamagePrice(Integer.parseInt(damagePrice));
 			    accident.setCompensationPrice(Integer.parseInt(compensationPrice));
 			    accident.setUserIdx(Long.parseLong(userIdx));
@@ -83,6 +87,11 @@ public class AccidentDao extends Dao{
 		String sql = "delete from insurance.accident where accidentIdx=" +
 				"'"+ accidentIdx +"'";
 		return super.delete(sql);
+	}
+
+	public boolean modifyCheckAccident(Long accidentIdx) {
+		String sql = "update insurance.accident set checkAccident=1 where accidentIdx = " + accidentIdx + ";";
+		return super.update(sql);
 	}
 	
 	
