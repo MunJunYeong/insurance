@@ -8,7 +8,7 @@ public interface AccidentList {
 	public List<Accident> getAccidentList();
 	public boolean deleteAccident(Long accidentIdx);
 	public boolean modifyCheckAccident(Long accidentIdx);
-	
+	public boolean modifyCompensationPrice(Long accidentIdx, int price);
 }
 
  

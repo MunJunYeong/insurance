@@ -26,5 +26,9 @@ public class AccidentListImpl implements AccidentList {
 	public boolean modifyCheckAccident(Long accidentIdx) {
 		return accidentDao.modifyCheckAccident(accidentIdx);
 	}
+	@Override
+	public boolean modifyCompensationPrice(Long accidentIdx, int price) {
+		return accidentDao.modifyCompensationPrice(accidentIdx, price);
+	}
 
 }
