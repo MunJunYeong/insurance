@@ -31,35 +31,39 @@ public class RunFrame {
 
 		while (!start) {
 			int select = Util.IntReader("1. 로그인 \n2. 회원가입 \n3. exit");
-			switch(select) {
+			switch (select) {
 			case 1:
 				PLogin pLogin = new PLogin(this.lists);
 				////////////////////// 사용자 장착//////////////////////
 				String type = pLogin.getType();
-				if(type == null) System.out.println("일치하는 회원정보가 존재하지 않습니다.");
-				else 
-					switch(type) {
-						case "user" :
-							this.user = pLogin.getUser();
-							runUser(this.user, this.lists);
-							break;
-						case "employee" :
-							this.employee = pLogin.getEmployee();
-							runEmployee(this.employee, this.lists);
-							break;
-						default :
-							System.out.println("not match account");
-							break;
+				if (type == null)
+					System.out.println("일치하는 회원정보가 존재하지 않습니다.");
+				else
+					switch (type) {
+					case "user":
+						this.user = pLogin.getUser();
+						runUser(this.user, this.lists);
+						break;
+					case "employee":
+						this.employee = pLogin.getEmployee();
+						runEmployee(this.employee, this.lists);
+						break;
+					default:
+						System.out.println("not match account");
+						break;
 					}
 				break;
 			case 2:
 				PSignUp pSignUp = new PSignUp(this.lists);
 				PLogin pLogin2 = new PLogin(this.lists);
 				////////////////////// 사용자 장착//////////////////////
-				if (pLogin2.getType().equals("user")) {
+				String type2 = pLogin2.getType();
+				if (type2 == null)
+					System.out.println("일치하는 회원정보가 존재하지 않습니다.");
+				else if (type2.equals("user")) {
 					this.user = pLogin2.getUser();
 					runUser(this.user, this.lists);
-				} else if (pLogin2.getType().equals("employee")) {
+				} else if (type2.equals("employee")) {
 					this.employee = pLogin2.getEmployee();
 					runEmployee(this.employee, this.lists);
 				} else {
@@ -69,7 +73,7 @@ public class RunFrame {
 			case 3:
 				start = true;
 				break;
-			default :
+			default:
 				System.out.println("정확한 번호를 입력해주세요.");
 				break;
 			}

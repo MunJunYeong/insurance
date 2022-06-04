@@ -141,7 +141,7 @@ public class PUser {
 		 while(!flag) {
 		    contractIdx = Util.IntReader("승인하실 계약 번호를 입력해주세요(뒤로가기 0)");
 		    if(contractIdx==0) {
-		       break;
+		    	return -2;
 		    }
 		    for (Contract temp : contractList) {
 		       if (temp.getContractIdx() == contractIdx) {
