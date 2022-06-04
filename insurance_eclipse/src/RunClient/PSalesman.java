@@ -98,69 +98,70 @@ public class PSalesman {
 		//만약 청약서 제안서 따로 작성을 원한다면 제안서 저장후 리스트에 저장하는데 청약서 작성할때 만약 기존 작성이 잇다면 이어서 해야하고 없으면 청약서 작성을 막아야함.
 	}
 
-	private int printInsurace(int insuranceType) {
-		boolean flag = false;
-		while(!flag) {
-			switch(insuranceType) {
-			case 1 :
-				List<Fire> fireList = this.lists.getFireList();
-				if(fireList.size() != 0) {
-					for(Insurance insurance : fireList) {
-						System.out.println(insurance.getInsuranceIdx() + "  "+ insurance.getRate()
-						+ "  "+ insurance.getFee());
-					}
-					flag = true;
-				}else {
-					System.out.println("보험이 아직 개발되지 않았습니다.");
-					return -1;
-				}
-				break;
-			case 2 :
-				List<Car> carList = this.lists.getCarList();
-				if(carList.size() != 0) {
-					for(Insurance insurance : carList) {
-						System.out.println(insurance.getInsuranceIdx() + "  "+ insurance.getRate()
-						+ "  "+ insurance.getFee());
-					}
-					flag = true;
-				}else {
-					System.out.println("보험이 아직 개발되지 않았습니다.");
-					return -1;
-				}
-				break;
-			case 3 :
-				List<Health> healthList = this.lists.getHealthList();
-				if(healthList.size() != 0) {
-					for(Insurance insurance : healthList) {
-						System.out.println(insurance.getInsuranceIdx() + "  "+ insurance.getRate()
-						+ "  "+ insurance.getFee());
-					}
-					flag = true;
-				}else {
-					System.out.println("보험이 아직 개발되지 않았습니다.");
-					return -1;
-				}
-				break;
-			case 4 :
-				List<Travel> travelList = this.lists.getTravelList();
-				if(travelList.size() != 0) {
-					for(Insurance insurance : travelList) {
-						System.out.println(insurance.getInsuranceIdx() + "  "+ insurance.getRate()
-						+ "  "+ insurance.getFee());
-					}
-					flag = true;
-				}else {
-					System.out.println("보험이 아직 개발되지 않았습니다.");
-					return -1;
-				}
-				break;
-			default :
-				System.out.println("다시 번호를 입력해주세요.");
-				break;
-			}
-		}
-		return 1;
-	}
+	   private int printInsurace(int insuranceType) {
+		      boolean flag = false;
+		      while(!flag) {
+		         switch(insuranceType) {
+		         case 1 :
+		            List<Fire> fireList = this.lists.getFireList();
+		            if(fireList.size() != 0) {
+		               for(Insurance insurance : fireList) {
+		                  System.out.println(insurance.getInsuranceIdx() + "  "+ insurance.getRate()
+		                  + "  "+ insurance.getFee());
+		               }
+		               flag = true;
+		            }else {
+		               System.out.println("보험이 아직 개발되지 않았습니다.");
+		               return -1;
+		            }
+		            break;
+		         case 2 :
+		            List<Car> carList = this.lists.getCarList();
+		            if(carList.size() != 0) {
+		               for(Insurance insurance : carList) {
+		                  System.out.println(insurance.getInsuranceIdx() + "  "+ insurance.getRate()
+		                  + "  "+ insurance.getFee());
+		               }
+		               flag = true;
+		            }else {
+		               System.out.println("보험이 아직 개발되지 않았습니다.");
+		               return -1;
+		            }
+		            break;
+		         case 3 :
+		            List<Health> healthList = this.lists.getHealthList();
+		            if(healthList.size() != 0) {
+		               for(Insurance insurance : healthList) {
+		                  System.out.println(insurance.getInsuranceIdx() + "  "+ insurance.getRate()
+		                  + "  "+ insurance.getFee());
+		               }
+		               flag = true;
+		            }else {
+		               System.out.println("보험이 아직 개발되지 않았습니다.");
+		               return -1;
+		            }
+		            break;
+		         case 4 :
+		            List<Travel> travelList = this.lists.getTravelList();
+		            if(travelList.size() != 0) {
+		               for(Insurance insurance : travelList) {
+		                  System.out.println(insurance.getInsuranceIdx() + "  "+ insurance.getRate()
+		                  + "  "+ insurance.getFee());
+		               }
+		               flag = true;
+		            }else {
+		               System.out.println("보험이 아직 개발되지 않았습니다.");
+		               return -1;
+		            }
+		            break;
+		         default :
+		            flag = true;
+		            System.out.println("다시 번호를 입력해주세요.");            
+		            break;
+		         }
+		      }
+		      return 1;
+		   }
 
 	// 2번 클릭
 	public void ShowFinalContract() {
@@ -177,6 +178,7 @@ public class PSalesman {
 		int contractIdx = Util.IntReader("최종 승인할 계약 번호를 입력해주세요.");
 		//contractIdx validation
 		this.lists.modifyCompleted((long) contractIdx);
+		//여기서 보험을 가지고와서 rate period fee 가지고오기
 		System.out.println("최종 계약 처리되었습니다.");
 		System.out.println();
 	}

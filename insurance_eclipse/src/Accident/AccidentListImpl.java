@@ -1,13 +1,6 @@
 package Accident;
 
-
-
-import java.sql.ResultSet;
-
 import java.util.List;
-
-
-
 import Dao.AccidentDao;
 
 public class AccidentListImpl implements AccidentList {
@@ -27,6 +20,11 @@ public class AccidentListImpl implements AccidentList {
 
 	public boolean deleteAccident(Long accidentIdx) {
 		return accidentDao.deleteAccident(accidentIdx);
+	}
+
+	@Override
+	public boolean modifyCheckAccident(Long accidentIdx) {
+		return accidentDao.modifyCheckAccident(accidentIdx);
 	}
 
 }
