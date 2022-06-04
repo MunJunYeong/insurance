@@ -110,13 +110,10 @@ public class PUser {
 		}else {
 			System.out.println("계약금을 납입을 취소합니다.");
 		}
-		
-		
-		
 	}
 
 	public long CheckSuggestion(Long userIdx) {
-		List<Contract> contractList = this.lists.getUserContract(userIdx);
+		List<Contract> contractList = this.lists.getUserSugContract(userIdx);
 		if (contractList.size() == 0) {
 			System.out.println("아직 보험 설계사로부터 받은 제안서가 존재하지 않습니다.");
 			System.out.println();
@@ -164,7 +161,7 @@ public class PUser {
 	}
 
 	public long CheckSubscription(Long userIdx) {
-		List<Contract> contractList = this.lists.getUserContract(userIdx);
+		List<Contract> contractList = this.lists.getUserSubContract(userIdx);
 		if (contractList.size() == 0) {
 			System.out.println("요청 온 청약서가 존재하지 않습니다.");
 			System.out.println();

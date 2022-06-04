@@ -11,7 +11,6 @@ public class UserListImpl implements UserList{
     public UserListImpl() {
     }
 
-
     @Override
 	public boolean SignUp(User user) {
 		return userDao.addUser(user);
@@ -21,14 +20,16 @@ public class UserListImpl implements UserList{
 	@Override
 	public boolean deleteUser(Long userIdx) {
 		return userDao.deleteUser(userIdx);
-
 	}
-
 	
 	@Override
 	public List<User> getUserList() {
 		List<User> userList = userDao.getUserList();
 		return userList;
+	}
 
+	@Override
+	public User getUser(long userIdx) {
+		return userDao.getUser(userIdx);
 	}
 }

@@ -3,10 +3,12 @@ package RunClient;
 import java.time.LocalDate;
 import java.time.chrono.ChronoLocalDate;
 import java.util.Date;
+import java.util.List;
 
 import Contract.Contract;
 import DataList.Lists;
 import Employee.Employee;
+import User.User;
 import global.Util;
 
 public class PManager {
@@ -30,53 +32,58 @@ public class PManager {
 			System.out.println("---------------Manager---------------");
 			System.out.println("1. 보험금 미납자 리스트 확인하기.");
 			System.out.println("2. 만기계약 대상자를 관리한다.");
-			int select = Util.IntReader("3. exit");
-
-			if (select == 1) {
-				// 여기서 value는 임시변수로 나중에 이어갈 기능에 이어가면됨
+			int select = Util.IntReader("3. 로그아웃 하기");
+			
+			switch(select) {
+			case 1:
 				ShowPayNotList();
-			} else if (select == 2) {
-				ManagementContract();
-			} else if (select == 3) {
+				break;
+			case 2:
+				almostContractList();
+				break;
+			case 3:
 				check = true;
-			} else {
-				System.out.println("Select Error retry");
+				System.out.println("로그아웃 되었습니다.");
+				break;
+			default :
+				System.out.println("유효한 번호를 입력해주세요.");
+				break;
 			}
 		}
 	}
 
-	public int ShowPayNotList() {
-
-		for (int i = 0; i < this.lists.getContractList().size(); i++) {
-			if (this.lists.getContractList().get(i).isCheckPay() == false) {
-				System.out.println(this.lists.getContractList().get(i).toStringAll());
-			}
+	private void ShowPayNotList() {
+		List<Contract> contractList = this.lists.getCheckPayContract();
+		if(contractList.size()== 0) {
+			System.out.println("미납자가 없습니다."); System.out.println(); return;
 		}
-		int selectContract = Util.IntReader("미납 이메일 보낼 사용자 번호를 입력하세요.");
-		sendEmail(selectContract);
-		return selectContract;
-	}
-
-	public int ManagementContract() {
-		// 만기계약 알아서하기 개귀찮음
-		// 2번 클릭시
-		// 리스트나오고
-		int idx;
-		for (int i = 0; i < this.lists.getContractList().size(); i++) {
-			if (this.lists.getContractList().get(i).getCreated().isAfter(LocalDate.now())) {
-				System.out.println(this.lists.getContractList().get(i).toStringAll());
-			}
+		for(Contract contract : contractList) {
+			System.out.println("[계약 번호] : " + contract.getContractIdx()  + "  [고객 번호] : " + contract.getUserIdx() + "  [미납 금액] : " + contract.getFee());
 		}
-		return idx = Util.IntReader("보험 연장 시킬 사용자 번호를 입력하세요.");
-
+		boolean flag = false;
+		long userIdx = (long) Util.IntReader("미납을 알릴 고객 번호를 입력하세요. 뒤로가기(0)");
+		while(!flag) {
+			if(userIdx == 0) {
+				flag = true; break;
+			}
+			for(Contract contract : contractList) {
+				if(contract.getUserIdx() == userIdx) {
+					userIdx = contract.getUserIdx();
+					flag = true;
+					break;
+				}
+			}
+			if(!flag) userIdx = Util.IntReader("존재하지 않는 고객 번호입니다. 다시 입력해주세요. 뒤로가기(0)");
+		}
+		if(userIdx == 0) return;
+		if(Util.IntReader("고객한테 미납 알림 이메일을 전송하시겠습니까? 승인(1) 미승인(아무버튼)") == 1) {
+			User user = this.lists.getUser(userIdx);
+			//이메일 보내는거 짜기
+			System.out.println(user.getEmail()+ " 메일 전송을 성공했습니다. ");
+		}
 	}
-
-	public boolean SendEmail(Contract contract, int idx) {
-		// 컨트랙트 안에 고객정보 가지고 보내기
-
-		System.out.println(lists.getUserList().findUser(idx).getEmail() + "로 전송이 완료되었습니다.");
-		// sendEamil 알아서
-		return true;
+	private void almostContractList() {
+		
 	}
 	
 	public Lists getLists() {
