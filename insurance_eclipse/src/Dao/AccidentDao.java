@@ -22,9 +22,10 @@ public class AccidentDao extends Dao{
 		if(accident.isCheckAccident()) isCheckAccident=1;
 		if(accident.isLawsuitStatus()) isLawsuitStatus=1;
 		LocalDate now = LocalDate.now();
-		String sql = "INSERT INTO insurance.accident(userIdx, accidenttype, content, accidentDate, damagePrice)"
+		String sql = "INSERT INTO insurance.accident(userIdx, insuranceIdx,accidenttype, content, accidentDate, damagePrice)"
 				+ " VALUES("+
 						"'" + accident.getUserIdx()+"', "+
+						"'" + accident.getInsuranceIdx()+"', "+
 						"'" + accident.getAccidenttype()+"', "+
 						"'" + accident.getContent()+"', "+
 						"'" + now +"', "+
@@ -95,17 +96,17 @@ public class AccidentDao extends Dao{
 				"'"+ accidentIdx +"'";
 		return super.delete(sql);
 	}
-
 	public boolean modifyCheckAccident(Long accidentIdx) {
 		String sql = "update insurance.accident set checkAccident=1 where accidentIdx = " + accidentIdx + ";";
 		return super.update(sql);
 	}
-
 	public boolean modifyCompensationPrice(Long accidentIdx, int price) {
 		String sql = "update insurance.accident set compensationPrice= "+ price  +" where accidentIdx = " + accidentIdx + ";";
 		return super.update(sql);
 	}
-	
-	
-	
+
+	public boolean modifyLawsuitStatus(Long accidentIdx) {
+		String sql = "update insurance.accident set lawsuitStatus=1 where accidentIdx = " + accidentIdx + ";";
+		return super.update(sql);
+	}
 }

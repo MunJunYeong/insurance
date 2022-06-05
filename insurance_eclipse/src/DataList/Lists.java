@@ -16,6 +16,7 @@ import employee.EmployeeListImpl;
 import insurance.Car;
 import insurance.Fire;
 import insurance.Health;
+import insurance.Insurance;
 import insurance.InsuranceList;
 import insurance.InsuranceListImpl;
 import insurance.Travel;
@@ -169,7 +170,9 @@ public class Lists {
 	public boolean modifyCheckAccident(Long accidentIdx) {
 		return this.accidentList.modifyCheckAccident(accidentIdx);
 	}
-
+	public boolean modifyLawsuitStatus(Long accidentIdx) {
+		return this.accidentList.modifyLawsuitStatus(accidentIdx);
+	}
 	public boolean modifyCompensationPrice(Long accidentIdx, int price) {
 		return this.accidentList.modifyCompensationPrice(accidentIdx, price);
 	}
@@ -253,7 +256,6 @@ public class Lists {
 		}
 		return temp;
 	}
-
 	public List<Accident> getCheckAccidentList() {
 		List<Accident> temp = new ArrayList<Accident>();
 		for (Accident accident : this.accidentList.getAccidentList()) {
@@ -263,7 +265,6 @@ public class Lists {
 		}
 		return temp;
 	}
-
 	public Accident getAccident(long accidentIdx) {
 		Accident temp = null;
 		for (Accident accident : this.accidentList.getAccidentList()) {
@@ -273,7 +274,6 @@ public class Lists {
 		}
 		return temp;
 	}
-	
 	public Employee getEmployee(long employeeIdx) {
 		Employee temp = null;
 		for (Employee employee : this.employeeList.getEmployeeList()) {
@@ -283,9 +283,7 @@ public class Lists {
 		}
 		return temp;
 	}
-	// 사고 접수할 때 해당 고객이 가입한 보험 확인
-	@SuppressWarnings("null")
-	public List<?> getUserFireList(Long userIdx) {
+	public long getUserFireList(Long userIdx) {
 		List<Fire> res = new ArrayList<Fire>();
 		List<Contract> list = this.contractList.getContractList();
 		for (Contract contract : list) {
@@ -298,12 +296,13 @@ public class Lists {
 				}
 			}
 		}
-		return res;
+		if(res.size() == 0) {
+			return -1;
+		}
+		return res.get(0).getInsuranceIdx();
 	}
-
-	@SuppressWarnings("null")
-	public List<?> getUserCarList(Long userIdx) {
-		List<Car> res = null;
+	public long getUserCarList(Long userIdx) {
+		List<Car> res = new ArrayList<Car>();
 		List<Contract> list = this.contractList.getContractList();
 		for (Contract contract : list) {
 			if (contract.getUserIdx() == userIdx) {
@@ -315,12 +314,13 @@ public class Lists {
 				}
 			}
 		}
-		return res;
+		if(res.size() == 0) {
+			return -1;
+		}
+		return res.get(0).getInsuranceIdx();
 	}
-
-	@SuppressWarnings("null")
-	public List<?> getUserHealthList(Long userIdx) {
-		List<Health> res = null;
+	public long getUserHealthList(Long userIdx) {
+		List<Health> res = new ArrayList<Health>();
 		List<Contract> list = this.contractList.getContractList();
 		for (Contract contract : list) {
 			if (contract.getUserIdx() == userIdx) {
@@ -332,12 +332,13 @@ public class Lists {
 				}
 			}
 		}
-		return res;
+		if(res.size() == 0) {
+			return -1;
+		}
+		return res.get(0).getInsuranceIdx();
 	}
-
-	@SuppressWarnings("null")
-	public List<?> getUserTravelList(Long userIdx) {
-		List<Travel> res = null;
+	public long getUserTravelList(Long userIdx) {
+		List<Travel> res = new ArrayList<>();
 		List<Contract> list = this.contractList.getContractList();
 		for (Contract contract : list) {
 			if (contract.getUserIdx() == userIdx) {
@@ -349,17 +350,11 @@ public class Lists {
 				}
 			}
 		}
-		return res;
+		if(res.size() == 0) {
+			return -1;
+		}
+		return res.get(0).getInsuranceIdx();
 	}
-
-
-
-
-
-	
-
-
-
 
 
 }

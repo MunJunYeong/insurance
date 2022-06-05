@@ -122,7 +122,7 @@ public class Salesman {
 		contract.setEmployeeIdx(employee.getEmployeeIdx());
 		contract.setCreated(LocalDate.now());
 		this.lists.addContract(contract);
-		System.out.println(userIdx + "고객의 제안서 청약서 작성이 전송되었습니다.");
+		System.out.println(userIdx + "번 고객의 제안서 청약서 작성이 전송되었습니다.");
 	}
 	private boolean checkInsuranceIdx(int insuranceIdx) {
 		List<Fire> fireList = this.lists.getFireList();
@@ -166,7 +166,8 @@ public class Salesman {
 					for (Insurance insurance : fireList) {
 						System.out.println(
 								"[보험 번호]: "+ insurance.getInsuranceIdx() + " "+
-									"[요율]:"+ insurance.getRate() + "  " + "[금액 ]: " + insurance.getFee() +" \n");
+									"[요율]:"+ insurance.getRate() + "  " + "[금액]: " + insurance.getFee()+ 
+									"[보험 내용]: " + insurance.getContent()+ "[최대 보상금액]: " + insurance.getMaxReward() +" \n");
 					}
 					flag = true;
 				} else {
@@ -179,7 +180,9 @@ public class Salesman {
 				if (carList.size() != 0) {
 					for (Insurance insurance : carList) {
 						System.out.println(
-								insurance.getInsuranceIdx() + "  " + insurance.getRate() + "  " + insurance.getFee());
+								"[보험 번호]: "+ insurance.getInsuranceIdx() + " "+
+									"[요율]:"+ insurance.getRate() + "  " + "[금액]: " + insurance.getFee()+ 
+									"[보험 내용]: " + insurance.getContent()+ "[최대 보상금액]: " + insurance.getMaxReward() +" \n");
 					}
 					flag = true;
 				} else {
@@ -192,7 +195,9 @@ public class Salesman {
 				if (healthList.size() != 0) {
 					for (Insurance insurance : healthList) {
 						System.out.println(
-								insurance.getInsuranceIdx() + "  " + insurance.getRate() + "  " + insurance.getFee());
+								"[보험 번호]: "+ insurance.getInsuranceIdx() + " "+
+									"[요율]:"+ insurance.getRate() + "  " + "[금액]: " + insurance.getFee()+ 
+									"  [보험 내용]: " + insurance.getContent()+ "  [최대 보상금액]: " + insurance.getMaxReward() +" \n");
 					}
 					flag = true;
 				} else {
@@ -205,7 +210,9 @@ public class Salesman {
 				if (travelList.size() != 0) {
 					for (Insurance insurance : travelList) {
 						System.out.println(
-								insurance.getInsuranceIdx() + "  " + insurance.getRate() + "  " + insurance.getFee());
+								"[보험 번호]: "+ insurance.getInsuranceIdx() + " "+
+									"[요율]:"+ insurance.getRate() + "  " + "[금액]: " + insurance.getFee()+ 
+									"[보험 내용]: " + insurance.getContent()+ "[최대 보상금액]: " + insurance.getMaxReward() +" \n");
 					}
 					flag = true;
 				} else {

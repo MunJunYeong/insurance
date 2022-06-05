@@ -209,27 +209,27 @@ public class SUser {
 		Accident accident = new Accident();
 		accident.setUserIdx(this.user.getUserIdx());
 		boolean flag = false;
-		List<?> insuranceList = null;
+		long insuranceIdx = -1;
 		while (!flag) {
 			int type = Util.IntReader("화재(1), 자동차(2), 생명(3), 여행(4)");
 			switch (type) {
 			case 1:
-				insuranceList = this.lists.getUserFireList(this.user.getUserIdx());
+				insuranceIdx = this.lists.getUserFireList(this.user.getUserIdx());
 				accident.setAccidenttype("Fire");
 				flag = true;
 				break;
 			case 2:
-				insuranceList = this.lists.getUserCarList(this.user.getUserIdx());
+				insuranceIdx = this.lists.getUserCarList(this.user.getUserIdx());
 				accident.setAccidenttype("Car");
 				flag = true;
 				break;
 			case 3:
-				insuranceList = this.lists.getUserHealthList(this.user.getUserIdx());
+				insuranceIdx = this.lists.getUserHealthList(this.user.getUserIdx());
 				accident.setAccidenttype("Health");
 				flag = true;
 				break;
 			case 4:
-				insuranceList = this.lists.getUserTravelList(this.user.getUserIdx());
+				insuranceIdx = this.lists.getUserTravelList(this.user.getUserIdx());
 				accident.setAccidenttype("Travel");
 				flag = true;
 				break;
@@ -238,23 +238,25 @@ public class SUser {
 				break;
 			}
 		}
-		if (insuranceList == null) {
+		if (insuranceIdx == -1) {
 			System.out.println("고객님께서 가입한 보험이 존재하지 않아 사고 신고가 불가능합니다.");
+			System.out.println();
 			return false;
 		}
-		// 사실 여기서 보험 리스트를 보여주는 것이 옳으나 그냥 제일 위에있는 보험으로 자동 연계되어 들어간다 ?
-
 		accident.setContent(Util.StringReader("사고 내용: "));
 		accident.setDamagePrice(Util.IntReader("피해 금액: "));
+		accident.setInsuranceIdx(insuranceIdx);
 		// 이 고객으로 부터 가입한 보험 가지고오기
 		this.lists.addAccident(accident);
+		System.out.println("사고 신고가 성공적으로 접수되었습니다.");
+		System.out.println();
 		return true;
 	}
 
 	public boolean checkAccident() {
 	System.out.println("------접수한 사고에 대한 결과입니다------");
     List<String> accidentLists = new ArrayList<>();
-    long accidentidx = 0;
+    long accidentIdx = 0;
     
 	System.out.println();
 	System.out.println("피해 금액 보상안 산정 중인 사고 내역");
@@ -277,12 +279,12 @@ public class SUser {
          if (this.lists.getAccidentList().get(i).isCheckAccident() == true
                && this.lists.getAccidentList().get(i).getUserIdx() == this.user.getUserIdx()) {
            System.out.println(this.lists.getAccidentList().get(i).toStringAll());
-            accidentidx = this.lists.getAccidentList().get(i).getAccidentIdx();
-            if(accidentidx !=0) {
+           accidentIdx = this.lists.getAccidentList().get(i).getAccidentIdx();
+            if(accidentIdx !=0) {
                 if (Util.IntReader("소송하시겠습니까? 소송 1 미소송 2") == 1) {
-                    this.lists.modifyCheckAccident(accidentidx);
+                    this.lists.modifyLawsuitStatus(accidentIdx);
+                    System.out.println("성공적으로 소송 되었습니다.");
                  }
-
             }
          }
       }

@@ -59,7 +59,7 @@ public class SAccidentManager {
 				System.out.println("사고 번호에 해당하는 사고 신고 내역이 없습니다. 다시 입력해주세요.");
 			}else {
 				flag = true;
-				System.out.println(accident.getAccidenttype()  + " " + accident.getContent()+ 
+				System.out.println(""+ accident.getAccidenttype()  + " " + accident.getContent()+ 
 						" " + accident.getAccidentDate()+ " "  + accident.getDamagePrice());
 			}
 		}
