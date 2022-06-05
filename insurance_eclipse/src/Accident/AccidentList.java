@@ -9,6 +9,7 @@ public interface AccidentList {
 	public boolean deleteAccident(Long accidentIdx);
 	public boolean modifyCheckAccident(Long accidentIdx);
 	public boolean modifyCompensationPrice(Long accidentIdx, int price);
+	public boolean modifyLawsuitStatus(Long accidentidx);
 }
 
  

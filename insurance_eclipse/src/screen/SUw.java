@@ -6,7 +6,6 @@ import contract.Contract;
 import dataList.Lists;
 import employee.Employee;
 import global.Util;
-import insurance.Travel;
 import uwRule.UwRule;
 
 public class SUw {
