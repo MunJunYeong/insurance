@@ -1,15 +1,15 @@
-package Dao;
+package dao;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import Insurance.Car;
-import Insurance.Fire;
-import Insurance.Health;
-import Insurance.Insurance;
-import Insurance.Travel;
+import insurance.Car;
+import insurance.Fire;
+import insurance.Health;
+import insurance.Insurance;
+import insurance.Travel;
 
 public class InsuranceDao extends Dao{
 	

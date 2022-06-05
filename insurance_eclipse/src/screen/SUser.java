@@ -1,19 +1,20 @@
-package RunClient;
+package screen;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import Accident.Accident;
-import Contract.Contract;
-import DataList.Lists;
-import User.User;
+import accident.Accident;
+import contract.Contract;
+import dataList.Lists;
 import global.Util;
+import user.User;
 
-public class PUser {
+public class SUser {
 
 	private User user;
 	private Lists lists;
 
-	public PUser(User user, Lists lists) {
+	public SUser(User user, Lists lists) {
 		this.lists = new Lists();
 		this.user = user;
 		// User
@@ -56,10 +57,10 @@ public class PUser {
 				}
 				break;
 			case 3:
-				CreateAccident();
+				createAccident();
 				break;
 			case 4:
-				CheckAccident();
+				checkAccident();
 				break;
 			case 5:
 				System.out.println("------미납된 계약를 확인합니다------");
@@ -203,7 +204,7 @@ public class PUser {
 		}
 	}
 
-	public boolean CreateAccident() {
+	public boolean createAccident() {
 		System.out.println("사고 신고 내용을 입력해주세요.");
 		Accident accident = new Accident();
 		accident.setUserIdx(this.user.getUserIdx());
@@ -215,8 +216,7 @@ public class PUser {
 			case 1:
 				insuranceList = this.lists.getUserFireList(this.user.getUserIdx());
 				accident.setAccidenttype("Fire");
-				if (insuranceList == null)
-					flag = true;
+				flag = true;
 				break;
 			case 2:
 				insuranceList = this.lists.getUserCarList(this.user.getUserIdx());
@@ -251,28 +251,43 @@ public class PUser {
 		return true;
 	}
 
-	public boolean CheckAccident() {
-		System.out.println("------접수한 사고에 대한 결과입니다------");
-		System.out.println();
-		System.out.println("피해 금액 보상안 산정 중인 사고 내역");
-		System.out.println();
-		System.out.println("처리된 신고 내역");
-		System.out.println();
-		System.out.println("소송한 신고 내역");
+	public boolean checkAccident() {
+	System.out.println("------접수한 사고에 대한 결과입니다------");
+    List<String> accidentLists = new ArrayList<>();
+    long accidentidx = 0;
+    
+	System.out.println();
+	System.out.println("피해 금액 보상안 산정 중인 사고 내역");
+	//compensationPRice 가 null 값이 자바에는 0으로 인식
+	//보상금액 처리가 완료된 것은 1로 표시하여 구분
+    for (int i = 0; i < this.lists.getAccidentList().size(); i++) {
+        if (this.lists.getAccidentList().get(i).getCompensationPrice() > 1
+              && this.lists.getAccidentList().get(i).getUserIdx() == this.user.getUserIdx()) {
+        	accidentLists.add(this.lists.getAccidentList().get(i).toStringAll());
+        }
+     }
+    for(String accidentList : accidentLists) {
+    	System.out.println(accidentList);
+    }
+    
+	System.out.println();
+	System.out.println("처리된 신고 내역");
+	   
+    for (int i = 0; i < this.lists.getAccidentList().size(); i++) {
+         if (this.lists.getAccidentList().get(i).isCheckAccident() == true
+               && this.lists.getAccidentList().get(i).getUserIdx() == this.user.getUserIdx()) {
+           System.out.println(this.lists.getAccidentList().get(i).toStringAll());
+            accidentidx = this.lists.getAccidentList().get(i).getAccidentIdx();
+            if(accidentidx !=0) {
+                if (Util.IntReader("소송하시겠습니까? 소송 1 미소송 2") == 1) {
+                    this.lists.modifyCheckAccident(accidentidx);
+                 }
 
-//      long accidentidx = 0;
-//      for (int i = 0; i < this.lists.getAccidentList().getAccidentList().size(); i++) {
-//         if (this.lists.getAccidentList().findAccident(i).isCheck() == true
-//               && this.lists.getAccidentList().findAccident(i).getUserIdx() == this.user.getUserIdx()) {
-//            System.out.println(this.lists.getAccidentList().findAccident(i).getInfo());
-//            accidentidx = this.lists.getAccidentList().findAccident(i).getAccidentIdx();
-//
-//         }
-//      }
-//      if (Util.IntReader("소송하시겠습니까? 소송 1 미소송 2") == 1) {
-//         this.lists.getAccidentList().findAccident(Math.toIntExact(accidentidx)).setLowsuit(true);
-//      }
-		return true;
+            }
+         }
+      }
+
+ 		return true;
 	}
 
 	public Lists getLists() {

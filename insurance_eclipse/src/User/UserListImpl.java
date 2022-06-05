@@ -1,7 +1,8 @@
-package User;
+package user;
 
 import java.util.List;
-import Dao.UserDao;
+
+import dao.UserDao;
 
 
 public class UserListImpl implements UserList{

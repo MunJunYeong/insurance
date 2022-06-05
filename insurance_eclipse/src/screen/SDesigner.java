@@ -1,22 +1,22 @@
-package RunClient;
+package screen;
 
 import java.util.List;
 
-import DataList.Lists;
-import Employee.Employee;
-import Insurance.Car;
-import Insurance.Fire;
-import Insurance.Health;
-import Insurance.Insurance;
-import Insurance.Travel;
+import dataList.Lists;
+import employee.Employee;
 import global.Util;
+import insurance.Car;
+import insurance.Fire;
+import insurance.Health;
+import insurance.Insurance;
+import insurance.Travel;
 
-public class PDesigner {
+public class SDesigner {
 
 	private Employee employee;
 	private Lists lists;
 
-	public PDesigner(Employee employee, Lists lists) {
+	public SDesigner(Employee employee, Lists lists) {
 		this.employee = employee;
 		this.lists = lists;
 

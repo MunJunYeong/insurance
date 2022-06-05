@@ -1,4 +1,4 @@
-package Employee;
+package employee;
 
 public class Employee {
 
@@ -73,6 +73,10 @@ public class Employee {
 	public void setAccountNumber(String accountNumber) {
 		this.accountNumber = accountNumber;
 	}
-    
-    
+	
+	@Override
+	public String toString() {
+		return "[직원 번호=" + employeeIdx + ", id=" + id + ", name=" + name + ", pw=" + pw + ", role="
+				+ role + ", 전화번호=" + tel + ", 등급=" + grade + ", 계좌번호=" + accountNumber + "]";
+	}
 }

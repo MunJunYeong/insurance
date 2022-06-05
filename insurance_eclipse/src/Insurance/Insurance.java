@@ -1,8 +1,8 @@
-package Insurance;
+package insurance;
 
-import Accident.Accident;
-import Contract.Contract;
-import Employee.Employee;
+import accident.Accident;
+import contract.Contract;
+import employee.Employee;
 
 
 public abstract class Insurance {

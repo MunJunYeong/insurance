@@ -1,12 +1,10 @@
-package Contract;
+package contract;
 
  
 
 import java.util.List;
 
- 
-
-import Dao.ContractDao;
+import dao.ContractDao;
 
  
 public class ContractListImpl implements ContractList{
@@ -25,8 +23,6 @@ public class ContractListImpl implements ContractList{
 		List<Contract> contractList = contractDao.findContractList();
 		return contractList;
 	}
-
-	
 
 	@Override
 	public boolean deleteContract(Long contractIdx) {

@@ -1,28 +1,28 @@
-package RunClient;
+package screen;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
-import Contract.Contract;
-import DataList.Lists;
-import Employee.Employee;
-import Insurance.Car;
-import Insurance.Fire;
-import Insurance.Health;
-import Insurance.Insurance;
-import Insurance.Travel;
-import User.User;
+import contract.Contract;
+import dataList.Lists;
+import employee.Employee;
 import global.Util;
+import insurance.Car;
+import insurance.Fire;
+import insurance.Health;
+import insurance.Insurance;
+import insurance.Travel;
+import user.User;
 
-public class PSalesman {
+public class Salesman {
 
 	private Employee employee;
 	private Lists lists;
 	private int fee;
 
-	public PSalesman(Employee employee, Lists lists) {
+	public Salesman(Employee employee, Lists lists) {
 
 		this.employee = employee;
 		this.lists = lists;
@@ -74,9 +74,9 @@ public class PSalesman {
 		}
 		for (int i = 0; i < userList.size(); i++) {
 			User temp = userList.get(i);
-			sb.append("[UserIdx: " + temp.getUserIdx() + "] ").append("[이름: " + temp.getName() + "] ")
-					.append("[이메일: " + temp.getEmail() + "] ").append("[직업: " + temp.getJob() + "]\n");
-		}
+			   sb.append("[UserIdx: " + temp.getUserIdx() + "] ").append("[이름: " + temp.getName() + "] ").append("[성별: " + SexToString(temp.isSex()) + "] ")
+               .append("[지역: " + temp.getState() + ", " + temp.getCity() + "] ").append("[직업: " + temp.getJob() + "]\n");
+      		}
 		System.out.print(sb);
 		System.out.println("---------------Select---------------");
 		// next
@@ -120,9 +120,7 @@ public class PSalesman {
 		contract.setInsuranceIdx((long) insuranceIdx);
 		contract.setFee(fee);
 		contract.setEmployeeIdx(employee.getEmployeeIdx());
-		String dateString = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-		LocalDate time = LocalDate.parse(dateString);
-		contract.setCreated(time);
+		contract.setCreated(LocalDate.now());
 		this.lists.addContract(contract);
 		System.out.println(userIdx + "고객의 제안서 청약서 작성이 전송되었습니다.");
 	}
@@ -167,7 +165,8 @@ public class PSalesman {
 				if (fireList.size() != 0) {
 					for (Insurance insurance : fireList) {
 						System.out.println(
-								insurance.getInsuranceIdx() + "  " + insurance.getRate() + "  " + insurance.getFee());
+								"[보험 번호]: "+ insurance.getInsuranceIdx() + " "+
+									"[요율]:"+ insurance.getRate() + "  " + "[금액 ]: " + insurance.getFee() +" \n");
 					}
 					flag = true;
 				} else {
@@ -225,38 +224,40 @@ public class PSalesman {
 	}
 
 	// 2번 클릭
-	public void ShowFinalContract() {
-		System.out.println("---------------Final Contract List---------------");
-		List<Contract> contractList = this.lists.getFinalContract();
-		if (contractList.size() == 0) {
-			System.out.println("인수 검사를 시행한 계약이 아직 존재하지 않습니다.");
-			return;
-		}
-		for (Contract contract : contractList) {
-			System.out.println(
-					contract.getContractIdx() + "   " + contract.getUserIdx() + "   " + contract.getEmployeeIdx());
-		}
-		int contractIdx = Util.IntReader("최종 승인할 계약 번호를 입력해주세요.");
-		// contractIdx validation
-		this.lists.modifyCompleted((long) contractIdx);
-		// 여기서 보험을 가지고와서 rate period fee 가지고오기
-		System.out.println("최종 계약 처리되었습니다.");
-		System.out.println();
-	}
+	 public void ShowFinalContract() {
+	      System.out.println("---------------Final Contract List---------------");
+	      List<Contract> contractList = this.lists.getFinalContract();
+	      if (contractList.size() == 0) {
+	         System.out.println("인수 검사를 시행한 계약이 아직 존재하지 않습니다.");
+	         return;
+	      }
+	      System.out.println("[계약번호] "+"[고객번호] "+"[직원번호]");
+	      for (Contract contract : contractList) {
+	         System.out.println(
+	               contract.getContractIdx() + "        " + contract.getUserIdx() + "        " + contract.getEmployeeIdx());
+	      }
+	      int contractIdx = Util.IntReader("최종 승인할 계약 번호를 입력해주세요.");
+	      // contractIdx validation
+	      this.lists.modifyCompleted((long) contractIdx);
+	      // 여기서 보험을 가지고와서 rate period fee 가지고오기
+	      System.out.println("최종 계약 처리되었습니다.");
+	      System.out.println();
+	   }
 
-	private void showCompleteContract() {
-		System.out.println("---------------Complete Contract List---------------");
-		List<Contract> contractList = this.lists.getCompleteContract();
-		if (contractList.size() == 0) {
-			System.out.println("최종 계약 완료된 보험 계약이 아직 존재하지 않습니다.");
-			return;
-		}
-		for (Contract contract : contractList) {
-			System.out.println(
-					contract.getContractIdx() + "   " + contract.getUserIdx() + "   " + contract.getEmployeeIdx());
-		}
-		System.out.println();
-	}
+	   private void showCompleteContract() {
+	      System.out.println("---------------Complete Contract List---------------");
+	      List<Contract> contractList = this.lists.getCompleteContract();
+	      if (contractList.size() == 0) {
+	         System.out.println("최종 계약 완료된 보험 계약이 아직 존재하지 않습니다.");
+	         return;
+	      }
+	      System.out.println("[계약번호] "+"[고객번호] "+"[직원번호]");
+	      for (Contract contract : contractList) {
+	         System.out.println(
+	               contract.getContractIdx() + "        " + contract.getUserIdx() + "        " + contract.getEmployeeIdx());
+	      } 
+	      System.out.println();
+	   }
 
 	public Lists getLists() {
 		return this.lists;
@@ -331,4 +332,10 @@ public class PSalesman {
 		}
 		fee = (int) (rate * insuranceFee);
 	}
+	public static String SexToString(boolean sex) {
+        if(sex == true) 
+           return "여자";
+        else 
+           return "남자";  
+     } 
 }

@@ -1,7 +1,7 @@
-package User;
+package user;
 
-import Accident.Accident;
-import Contract.Contract;
+import accident.Accident;
+import contract.Contract;
 
 public class User {
 

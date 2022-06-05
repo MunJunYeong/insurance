@@ -1,19 +1,19 @@
-package RunClient;
+package screen;
 
 import java.util.List;
 
-import Contract.Contract;
-import DataList.Lists;
-import Employee.Employee;
-import User.User;
+import contract.Contract;
+import dataList.Lists;
+import employee.Employee;
 import global.Util;
+import user.User;
 
-public class PManager {
+public class SManager {
 
 	private Employee employee;
 	private Lists lists;
 
-	public PManager(Employee employee, Lists lists) {
+	public SManager(Employee employee, Lists lists) {
 
 		this.lists = lists;
 		this.employee = employee;
@@ -50,7 +50,35 @@ public class PManager {
 	}
 	private void almostContractList() {
 		List<Contract> contractList = this.lists.getAlmostContractList();
+		if(contractList.size()== 0) {
+			System.out.println("만기계약 대상자가 없습니다."); System.out.println(); return;
+		}
+		for(Contract contract : contractList) {
+			System.out.println("[계약 번호] : " + contract.getContractIdx()  + "  [고객 번호] : " + contract.getUserIdx() + "  [계약 날짜] : " + contract.getCreated());
+		}
+		boolean flag = false;
+		long userIdx = (long) Util.IntReader("만기계약을 알릴 고객 번호를 입력하세요. 뒤로가기(0)");
+		while(!flag) {
+			if(userIdx == 0) {
+				flag = true; break;
+			}
+			for(Contract contract : contractList) {
+				if(contract.getUserIdx() == userIdx) {
+					userIdx = contract.getUserIdx();
+					flag = true;
+					break;
+				}
+			}
+			if(!flag) userIdx = Util.IntReader("존재하지 않는 고객 번호입니다. 다시 입력해주세요. 뒤로가기(0)");
+		}
+		if(userIdx == 0) return;
+		if(Util.IntReader("고객한테 만기계약 알림 이메일을 전송하시겠습니까? 승인(1) 미승인(아무버튼)") == 1) {
+			User user = this.lists.getUser(userIdx);
+			//이메일 보내는거 짜기
+			System.out.println(user.getEmail()+ " 메일 전송을 성공했습니다. ");
+		}
 	}
+	
 	private void ShowPayNotList() {
 		List<Contract> contractList = this.lists.getCheckPayContract();
 		if(contractList.size()== 0) {

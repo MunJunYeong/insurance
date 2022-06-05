@@ -1,7 +1,8 @@
-package Accident;
+package accident;
 
 import java.util.List;
-import Dao.AccidentDao;
+
+import dao.AccidentDao;
 
 public class AccidentListImpl implements AccidentList {
 	private AccidentDao accidentDao = new AccidentDao();
@@ -9,15 +10,15 @@ public class AccidentListImpl implements AccidentList {
 	public AccidentListImpl() {
 	}
 
-	public List<Accident> getAccidentList() {
-		List<Accident> accidentLists = accidentDao.getAccidentList();
-		return accidentLists;
-	}
-
 	public boolean createAccident(Accident accident) {
 		return accidentDao.addAccident(accident);
 	}
 
+	public List<Accident> getAccidentList() {
+		List<Accident> accidentLists = accidentDao.getAccidentList();
+		return accidentLists;
+	}
+	
 	public boolean deleteAccident(Long accidentIdx) {
 		return accidentDao.deleteAccident(accidentIdx);
 	}

@@ -1,17 +1,17 @@
-package RunClient;
+package screen;
 
 import java.util.regex.Pattern;
 
-import DataList.Lists;
-import Employee.Employee;
-import User.User;
+import dataList.Lists;
+import employee.Employee;
 import global.Util;
+import user.User;
 
-public class PSignUp {
+public class SSignUpScreen {
    
    private Lists lists;
    
-   public PSignUp(Lists lists) {
+   public SSignUpScreen(Lists lists) {
       this.lists = lists;
 
       System.out.println("---------------회원가입---------------");

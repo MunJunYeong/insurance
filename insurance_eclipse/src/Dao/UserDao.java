@@ -1,10 +1,11 @@
-package Dao;
+package dao;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import User.User;
+
+import user.User;
 
 public class UserDao extends Dao {
 

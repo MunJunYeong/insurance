@@ -1,19 +1,20 @@
-package RunClient;
+package screen;
 
 import java.util.List;
 
-import Contract.Contract;
-import DataList.Lists;
-import Employee.Employee;
+import contract.Contract;
+import dataList.Lists;
+import employee.Employee;
 import global.Util;
+import insurance.Travel;
+import uwRule.UwRule;
 
-public class PUW {
+public class SUw {
 
-	private Employee employee;
+	private Employee employee = new Employee();
 	private Lists lists;
-	private String UWRole; // 알아서 가져가기 인수정책
 
-	public PUW(Employee employee, Lists lists) {
+	public SUw(Employee employee, Lists lists) {
 
 		this.employee = employee;
 		this.lists = lists;
@@ -27,17 +28,21 @@ public class PUW {
 		while (!check) {
 			System.out.println("---------------UW---------------");
 			System.out.println("1. 인수 정책 수립하기");
-			System.out.println("2. 인수 검사 리스트 확인 / 승인 하기");
-			int select = Util.IntReader("3. 로그아웃");
+			System.out.println("2. 인수 정책 리스트 확인");
+			System.out.println("3. 인수 검사 리스트 확인 / 승인 하기");
+			int select = Util.IntReader("4. 로그아웃");
 
 			switch (select) {
 			case 1:
-				this.UWRole = Util.StringReader("인수정책 내용을 입력하세요 : ");
+				addUwRule();
 				break;
 			case 2:
-				checkUW();
+				getUwRule();
 				break;
 			case 3:
+				checkUW();
+				break;
+			case 4:
 				check = true;
 				break;
 			default:
@@ -46,7 +51,33 @@ public class PUW {
 			}
 		}
 	}
+	private void addUwRule() {
+		UwRule uwRule = new UwRule();
+		uwRule.setTitle(Util.StringReader("인수정책 제목: "));
+		uwRule.setContent(Util.StringReader("인수정책 내용: "));
+		uwRule.setEmployeeIdx(this.employee.getEmployeeIdx());
+		this.lists.addUwRule(uwRule);
+	}
 
+	public boolean getUwRule() {
+		System.out.println("---------------UWRule LIST---------------");
+		List<UwRule> uwRuleList = this.lists.getUwRuleList();
+		if (uwRuleList.size() == 0) {
+			System.out.println("등록된 인수 정책이 없습니다.");
+			return false;
+		}
+		System.out.println("[정책 번호]   " + "[정책 제목]   "+ "[정책 내용]   "+ "[직원 번호]");
+		for (UwRule temp : uwRuleList) {
+			String message = "   " + 
+					temp.getUwRuleIdx() + "         " + 
+					temp.getTitle() + "         "+
+					temp.getContent() + "         "+
+					temp.getEmployeeIdx() + "\n";
+			System.out.println(message);
+		}
+		return true;
+	
+	}
 	public boolean checkUW() {
 		System.out.println("---------------UW LIST---------------");
 		List<Contract> contractList = this.lists.getUwContract();
