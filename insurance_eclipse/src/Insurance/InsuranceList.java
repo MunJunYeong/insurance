@@ -1,4 +1,4 @@
-package Insurance;
+package insurance;
 
 import java.util.List;
 

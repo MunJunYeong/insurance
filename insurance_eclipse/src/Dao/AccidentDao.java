@@ -1,4 +1,4 @@
-package Dao;
+package dao;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -8,7 +8,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
-import Accident.Accident;
+import accident.Accident;
 
 public class AccidentDao extends Dao{
 
@@ -68,7 +68,9 @@ public class AccidentDao extends Dao{
 			    accident.setContent(content);
 			    accident.setAccidentDate(time);
 			    accident.setDamagePrice(Integer.parseInt(damagePrice));
-			    accident.setCompensationPrice(Integer.parseInt(compensationPrice));
+			    
+				if(compensationPrice==null) accident.setCompensationPrice(0);
+				else accident.setCompensationPrice(Integer.parseInt(compensationPrice));
 			    
 				if(userIdx ==null) accident.setUserIdx(null);
 				else accident.setUserIdx(Long.parseLong(userIdx));
@@ -100,7 +102,7 @@ public class AccidentDao extends Dao{
 	}
 
 	public boolean modifyCompensationPrice(Long accidentIdx, int price) {
-		String sql = "update insurance.accident set compensationPrice= "+ price  +" 1 where accidentIdx = " + accidentIdx + ";";
+		String sql = "update insurance.accident set compensationPrice= "+ price  +" where accidentIdx = " + accidentIdx + ";";
 		return super.update(sql);
 	}
 	

@@ -2,21 +2,21 @@ package main;
 
 import java.util.List;
 
-import Dao.InsuranceDao;
-import DataList.Lists;
-import Employee.Employee;
-import RunClient.PAccidentManager;
-import RunClient.PDamageAssessor;
-import RunClient.PDesigner;
-import RunClient.PLogin;
-import RunClient.PManager;
-import RunClient.PMarketer;
-import RunClient.PSalesman;
-import RunClient.PSignUp;
-import RunClient.PUW;
-import RunClient.PUser;
-import User.User;
+import dao.InsuranceDao;
+import dataList.Lists;
+import employee.Employee;
 import global.Util;
+import screen.SAccidentManager;
+import screen.SDamageAssessor;
+import screen.SDesigner;
+import screen.SLoginScreen;
+import screen.SManager;
+import screen.SMarketer;
+import screen.Salesman;
+import screen.SSignUpScreen;
+import screen.SUw;
+import screen.SUser;
+import user.User;
 
 public class RunFrame {
 
@@ -33,7 +33,7 @@ public class RunFrame {
 			int select = Util.IntReader("1. 로그인 \n2. 회원가입 \n3. exit");
 			switch (select) {
 			case 1:
-				PLogin pLogin = new PLogin(this.lists);
+				SLoginScreen pLogin = new SLoginScreen(this.lists);
 				////////////////////// 사용자 장착//////////////////////
 				String type = pLogin.getType();
 				if (type == null)
@@ -54,8 +54,8 @@ public class RunFrame {
 					}
 				break;
 			case 2:
-				PSignUp pSignUp = new PSignUp(this.lists);
-				PLogin pLogin2 = new PLogin(this.lists);
+				SSignUpScreen pSignUp = new SSignUpScreen(this.lists);
+				SLoginScreen pLogin2 = new SLoginScreen(this.lists);
 				////////////////////// 사용자 장착//////////////////////
 				String type2 = pLogin2.getType();
 				if (type2 == null)
@@ -82,7 +82,7 @@ public class RunFrame {
 
 	////////////////////// Run User//////////////////////
 	public boolean runUser(User user, Lists lists) {
-		PUser pUser = new PUser(user, lists);
+		SUser pUser = new SUser(user, lists);
 		return true;
 	}
 
@@ -91,31 +91,31 @@ public class RunFrame {
 		String role = employee.getRole();
 		switch (role) {
 		case "AccidentManager":
-			PAccidentManager accidentManager = new PAccidentManager(employee,lists);
+			SAccidentManager accidentManager = new SAccidentManager(employee,lists);
 			this.lists = accidentManager.getLists(); //DB저장 
 			return true;
 		case "DamageAssessor":
-			PDamageAssessor damageAssessor = new PDamageAssessor(employee, lists);
-//			List<String> messages = damageAssessor.getLists();
+			SDamageAssessor damageAssessor = new SDamageAssessor(employee, lists);
+			this.lists = damageAssessor.getLists();
 			return true;
 		case "Designer":
-			PDesigner designer = new PDesigner(employee, lists);
+			SDesigner designer = new SDesigner(employee, lists);
 			this.lists = designer.getLists();
 			return true;
 		case "Manager":
-			PManager manager = new PManager(employee, lists);
+			SManager manager = new SManager(employee, lists);
 			this.lists = manager.getLists();
 			return true;
 		case "Marketer":
-			PMarketer marketer = new PMarketer(employee, lists);
+			SMarketer marketer = new SMarketer(employee, lists);
 			this.lists = marketer.getLists();
 			return true;
 		case "Salesman":
-			PSalesman salesman = new PSalesman(employee, lists);
+			Salesman salesman = new Salesman(employee, lists);
 			this.lists = salesman.getLists();
 			return true;
 		case "UW":
-			PUW uw = new PUW(employee, lists);
+			SUw uw = new SUw(employee, lists);
 			this.lists = uw.getLists();
 			return true;
 		default:

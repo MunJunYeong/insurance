@@ -1,18 +1,18 @@
-package RunClient;
+package screen;
 
 import java.util.List;
 
-import Accident.Accident;
-import DataList.Lists;
-import Employee.Employee;
+import accident.Accident;
+import dataList.Lists;
+import employee.Employee;
 import global.Util;
 
-public class PAccidentManager {
+public class SAccidentManager {
 
 	private Employee employee;
 	private Lists lists;
 
-	public PAccidentManager(Employee employee, Lists lists) {
+	public SAccidentManager(Employee employee, Lists lists) {
 		this.lists = lists;
 		this.employee = employee;
 		AccidentManagerMain();

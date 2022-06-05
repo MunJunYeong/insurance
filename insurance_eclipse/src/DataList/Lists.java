@@ -1,29 +1,33 @@
-package DataList;
+package dataList;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.Period;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-import Accident.Accident;
-import Accident.AccidentList;
-import Accident.AccidentListImpl;
-import Contract.Contract;
-import Contract.ContractList;
-import Contract.ContractListImpl;
-import Employee.Employee;
-import Employee.EmployeeList;
-import Employee.EmployeeListImpl;
-import Insurance.Car;
-import Insurance.Fire;
-import Insurance.Health;
-import Insurance.InsuranceList;
-import Insurance.InsuranceListImpl;
-import Insurance.Travel;
-import User.User;
-import User.UserList;
-import User.UserListImpl;
+
+import accident.Accident;
+import accident.AccidentList;
+import accident.AccidentListImpl;
+import contract.Contract;
+import contract.ContractList;
+import contract.ContractListImpl;
+import employee.Employee;
+import employee.EmployeeList;
+import employee.EmployeeListImpl;
+import insurance.Car;
+import insurance.Fire;
+import insurance.Health;
+import insurance.InsuranceList;
+import insurance.InsuranceListImpl;
+import insurance.Travel;
+import salesExpense.SalesExpense;
+import salesExpense.SalesExpenseList;
+import salesExpense.SalesExpenseListImpl;
+import user.User;
+import user.UserList;
+import user.UserListImpl;
+import uwRule.UwRule;
+import uwRule.UwRuleList;
+import uwRule.UwRuleListImpl;
 
 public class Lists {
 
@@ -32,13 +36,17 @@ public class Lists {
 	private AccidentList accidentList;
 	private ContractList contractList;
 	private InsuranceList insuranceList;
-
+	private UwRuleList uwRuleList;
+	private SalesExpenseList salesExpenseList;
+	
 	public Lists() {
 		this.userList = new UserListImpl();
 		this.employeeList = new EmployeeListImpl();
 		this.accidentList = new AccidentListImpl();
 		this.contractList = new ContractListImpl();
 		this.insuranceList = new InsuranceListImpl();
+		this.uwRuleList = new UwRuleListImpl();
+		this.salesExpenseList = new SalesExpenseListImpl();
 	}
 
 	public List<User> getUserList() {
@@ -50,11 +58,16 @@ public class Lists {
 	public List<Accident> getAccidentList() {
 		return this.accidentList.getAccidentList();
 	}
-
 	public List<Contract> getContractList() {
 		return this.contractList.getContractList();
 	}
-
+	public List<UwRule> getUwRuleList() {
+		return this.uwRuleList.getUwRuleList();
+	}
+	public List<SalesExpense> getSalesExpenseList() {
+		return this.salesExpenseList.getSalesExpenseList();
+	}
+	
 	// 보험 list 가져오기
 	public List<Fire> getFireList() {
 		return this.insuranceList.getFireInsuranceList();
@@ -107,11 +120,19 @@ public class Lists {
 	public boolean addTravelInsurance(Travel travel) {
 		return this.insuranceList.addTravelInsurnace(travel);
 	}
-
 	public boolean addHealthInsurance(Health health) {
 		return this.insuranceList.addHealthInsurnace(health);
 	}
-
+	
+	//인수정책추가
+	public boolean addUwRule(UwRule uwRule) {
+		return this.uwRuleList.createUwRule(uwRule);
+	}
+	//영업비기준정책추가
+	public boolean addSalesExpense(SalesExpense salesExpense) {
+		return this.salesExpenseList.createSalesExpense(salesExpense);
+	}
+		
 	public boolean deleteEmployee(Long employeeIdx) {
 		return this.employeeList.deleteEmployee(employeeIdx);
 	}
@@ -152,22 +173,23 @@ public class Lists {
 	public boolean modifyCompensationPrice(Long accidentIdx, int price) {
 		return this.accidentList.modifyCompensationPrice(accidentIdx, price);
 	}
+	public boolean modifyEmployeeGrade(Long employeeIdx, String grade) {
+		return this.employeeList.modifyEmployeeGrade(employeeIdx, grade);
+	}
 
 	// Contract 가져오는 method
 	public List<Contract> getAlmostContractList() {
 		//만기계약은 가입일로부터 30일 이후
-		String dateString = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-		LocalDate time = LocalDate.parse(dateString);
+		LocalDate time = LocalDate.now();
 		List<Contract> temp = new ArrayList<Contract>();
 		for(Contract contract : this.contractList.getContractList()) {
-			//이 부분에서 해줘야됨
-			Period period = Period.between(time, contract.getCreated().plusDays(30));
-			System.out.println(time);
-			System.out.println(contract.getCreated());
-			System.out.println(period.getDays());
+			LocalDate tempCreated = contract.getCreated().plusDays(30);
+			if(time.isAfter(tempCreated)) {
+				temp.add(contract);
+			}
 			System.out.println("--------------------");
 		}
-		return null;
+		return temp;
 	}
 	public List<Contract> getUserSugContract(Long userIdx) {
 		List<Contract> temp = new ArrayList<Contract>();
@@ -224,7 +246,8 @@ public class Lists {
 	public List<Contract> getCheckPayContract() {
 		List<Contract> temp = new ArrayList<Contract>();
 		for(Contract contract : this.getCompleteContract()) {
-			if(!contract.isCheckPay()) {
+			if(!(contract.isCheckPay())) {
+				System.out.println(contract.isCheckPay());
 				temp.add(contract);
 			}
 		}
@@ -250,11 +273,20 @@ public class Lists {
 		}
 		return temp;
 	}
-
+	
+	public Employee getEmployee(long employeeIdx) {
+		Employee temp = null;
+		for (Employee employee : this.employeeList.getEmployeeList()) {
+			if (employee.getEmployeeIdx() == employeeIdx) {
+				temp = employee;
+			}
+		}
+		return temp;
+	}
 	// 사고 접수할 때 해당 고객이 가입한 보험 확인
 	@SuppressWarnings("null")
 	public List<?> getUserFireList(Long userIdx) {
-		List<Fire> res = null;
+		List<Fire> res = new ArrayList<Fire>();
 		List<Contract> list = this.contractList.getContractList();
 		for (Contract contract : list) {
 			if (contract.getUserIdx() == userIdx) {

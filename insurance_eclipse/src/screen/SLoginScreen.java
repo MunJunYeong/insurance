@@ -1,11 +1,11 @@
-package RunClient;
+package screen;
 
-import DataList.Lists;
-import Employee.Employee;
-import User.User;
+import dataList.Lists;
+import employee.Employee;
 import global.Util;
+import user.User;
 
-public class PLogin {
+public class SLoginScreen {
 
 	private String id = "";
 	private String pw = "";
@@ -13,7 +13,7 @@ public class PLogin {
 	private Employee employee;
 	private String type;
 	private boolean duplicateId = false;
-	public PLogin(Lists lists) {
+	public SLoginScreen(Lists lists) {
 		System.out.println("---------------Login---------------");
 		id = Util.StringReader("ID : ");
 		pw = Util.StringReader("PW : ");

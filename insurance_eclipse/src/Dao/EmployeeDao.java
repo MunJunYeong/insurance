@@ -1,11 +1,12 @@
-package Dao;
+package dao;
 
  
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import Employee.Employee;
+
+import employee.Employee;
 
 public class EmployeeDao extends Dao{
 	public EmployeeDao() {
@@ -69,15 +70,19 @@ public class EmployeeDao extends Dao{
 	
 
 //	public boolean updateEmployee() {
-
 //		String sql = "update insurance.employee set checkSug="
-
 //				+ 1 + " where contractIdx =" +"'" +employeeIdx + "' and " +  "userIdx="
-
 //				+ "'" + userIdx + "';";
 
 //    	System.out.p
 
 //	}
+	
+	public boolean modifyEmployeeGrade(Long employeeIdx, String grade) {
+		String sql = "update insurance.employee set grade= "+ "'"+ grade  +"'  where employeeIdx = " + employeeIdx + ";";
+		System.out.println(sql);
+		return super.update(sql);
+	}
+
 
 }

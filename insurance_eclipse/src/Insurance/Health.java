@@ -1,4 +1,4 @@
-package Insurance;
+package insurance;
 
 public class Health extends Insurance {
 

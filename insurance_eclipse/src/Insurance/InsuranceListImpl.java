@@ -1,7 +1,8 @@
-package Insurance;
+package insurance;
 
 import java.util.List;
-import Dao.InsuranceDao;
+
+import dao.InsuranceDao;
 
 public class InsuranceListImpl implements InsuranceList {
 	

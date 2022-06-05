@@ -1,18 +1,18 @@
-package RunClient;
+package screen;
 
 import java.util.List;
 
-import Accident.Accident;
-import DataList.Lists;
-import Employee.Employee;
+import accident.Accident;
+import dataList.Lists;
+import employee.Employee;
 import global.Util;
 
-public class PDamageAssessor {
+public class SDamageAssessor {
 
 	private Lists lists;
 	private Employee employee;
 
-	public PDamageAssessor(Employee employee, Lists lists) {
+	public SDamageAssessor(Employee employee, Lists lists) {
 		this.lists = lists;
 		this.employee = employee;
 		// DamageAssessor 손해 관리 직원

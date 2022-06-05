@@ -1,4 +1,4 @@
-package Accident;
+package accident;
 
 import java.util.List;
 

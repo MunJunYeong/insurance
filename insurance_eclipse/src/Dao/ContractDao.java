@@ -1,4 +1,4 @@
-package Dao;
+package dao;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -8,7 +8,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
-import Contract.Contract;
+import contract.Contract;
 
 public class ContractDao extends Dao {
 	public ContractDao() {
@@ -66,16 +66,16 @@ public class ContractDao extends Dao {
 
 				Contract contract = new Contract();
 				contract.setContractIdx(Long.parseLong(contractIdx));
-				String dateString = created.formatted(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-				LocalDate time = LocalDate.parse(dateString);
-				contract.setCreated(time);
+				
+				LocalDate date = LocalDate.parse(created, DateTimeFormatter.ISO_DATE);
+				
+				contract.setCreated(date);
 				contract.setSubscription(subscription);
 				contract.setSuggestion(suggestion);
 				contract.setCheckSub(bolCheckSub);
 				contract.setCheckSug(bolCheckSug);
 				contract.setCheckUw(bolCheckUw);
 				contract.setCheckPay(bolCheckpay);
-
 				if (userIdx == null)
 					contract.setUserIdx(null);
 				else

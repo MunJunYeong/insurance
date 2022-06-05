@@ -1,7 +1,8 @@
-package Employee;
+package employee;
 
 import java.util.List;
-import Dao.EmployeeDao;
+
+import dao.EmployeeDao;
 
 public class EmployeeListImpl implements EmployeeList {
 	private EmployeeDao employeeDao = new EmployeeDao();
@@ -24,5 +25,11 @@ public class EmployeeListImpl implements EmployeeList {
 	@Override	
 	public boolean deleteEmployee(Long employeeIdx) {
 		return employeeDao.deleteEmployee(employeeIdx);
+	}
+
+
+	@Override
+	public boolean modifyEmployeeGrade(Long employeeIdx, String grade) {
+		return employeeDao.modifyEmployeeGrade(employeeIdx, grade);
 	}
 }
