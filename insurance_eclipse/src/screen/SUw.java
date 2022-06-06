@@ -90,22 +90,39 @@ public class SUw {
 			System.out.println(message);
 			System.out.println("[제안서] : " + temp.getSuggestion());
 			System.out.println("[청약서] : " + temp.getSubscription());
+			System.out.println("-----------------------------------");
 		}
 		System.out.println("---------------CHECK UW---------------");
-		int contractIdx = Util.IntReader("승인할 계약번호를 입력하세요.");
-		if (Util.IntReader("승인하시겠습니까? 승인(1) 미승인(2)") == 1) {
-			Contract contract = null;
-			for (Contract temp : contractList) {
-				if (temp.getContractIdx() == contractIdx) {
-					contract = temp;
-				}
+		boolean checkInt = false;
+		int contractIdx = -1;
+		while(!checkInt) {
+	         if(contractIdx == -1) {
+	        	 contractIdx = Util.IntReader("승인할 계약번호를 입력하세요.");
+	         }
+	         if(contractIdx != -1) {
+	            checkInt = true;
+	         }
+	      }
+		Contract contract = null;
+		for (Contract temp : contractList) {
+			if (temp.getContractIdx() == contractIdx) {
+				contract = temp;
 			}
+		}
+		if(contract == null) {
+			System.out.println("해당 계약번호가 존재하지 않습니다.");
+			return false;
+		}
+		int uWChoice = Util.IntReader("승인하시겠습니까? 승인(1) 미승인(2)");
+		if (uWChoice == 1) {
 			this.lists.modifyCheckUw(contract.getContractIdx());
 			System.out.println(contract.getContractIdx() + "번 계약의 인수검사가 성공적으로 수행되었습니다.");
 			System.out.println();
 			return true;
+		}else {
+			System.out.println("미승인 처리되었습니다.");
+			return false;
 		}
-		return false;
 	}
 
 	public Lists getLists() {

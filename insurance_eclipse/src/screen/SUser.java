@@ -78,33 +78,38 @@ public class SUser {
 
 	private void payContract() {
 		List<Contract> contractList = this.lists.getCheckPayContract(this.user.getUserIdx());
-		if(contractList.size()== 0) {
-			System.out.println("납부하지 않은 계약이 없습니다."); System.out.println(); return;
+		if (contractList.size() == 0) {
+			System.out.println("납부하지 않은 계약이 없습니다.");
+			System.out.println();
+			return;
 		}
-		for(Contract contract : contractList) {
+		for (Contract contract : contractList) {
 			System.out.println("[계약 번호] : " + contract.getContractIdx() + "  [계약 금액] : " + contract.getFee());
 		}
 		long contractIdx = -1;
 		boolean flag = false;
 		contractIdx = (long) Util.IntReader("계약 금액을 납부할 계약 번호를 입력해주세요. 뒤로가기(0)");
-		while(!flag) {
-			if(contractIdx == 0) {
-				flag= true; break;
+		while (!flag) {
+			if (contractIdx == 0) {
+				flag = true;
+				break;
 			}
-			for(Contract contract : contractList) {
-				if(contract.getContractIdx() == contractIdx) {
+			for (Contract contract : contractList) {
+				if (contract.getContractIdx() == contractIdx) {
 					contractIdx = contract.getContractIdx();
 					flag = true;
 					break;
 				}
 			}
-			if(!flag) contractIdx = Util.IntReader("존재하지 않는 계약 번호입니다. 다시 입력해주세요. 뒤로가기(0)");
+			if (!flag)
+				contractIdx = Util.IntReader("존재하지 않는 계약 번호입니다. 다시 입력해주세요. 뒤로가기(0)");
 		}
-		if(contractIdx == 0) return;
-		if(Util.IntReader("승인하시겠습니까? 승인(1) 미승인(아무 버튼)") == 1) {
+		if (contractIdx == 0)
+			return;
+		if (Util.IntReader("승인하시겠습니까? 승인(1) 미승인(2)") == 1) {
 			this.lists.modifyCheckPay(contractIdx);
-			System.out.println(contractIdx +"번 계약의 계약금을 성공적으로 납부했습니다. 감사합니다!");
-		}else {
+			System.out.println(contractIdx + "번 계약의 계약금을 성공적으로 납부했습니다. 감사합니다!");
+		} else {
 			System.out.println("계약금을 납입을 취소합니다.");
 		}
 	}
@@ -244,7 +249,17 @@ public class SUser {
 			return false;
 		}
 		accident.setContent(Util.StringReader("사고 내용: "));
-		accident.setDamagePrice(Util.IntReader("피해 금액: "));
+		boolean checkInt = false;
+		int tempDamagePrice = -1;
+		while (!checkInt) {
+			if (tempDamagePrice == -1) {
+				tempDamagePrice = Util.IntReader("피해 금액: ");
+			}
+			if (tempDamagePrice != -1) {
+				checkInt = true;
+			}
+		}
+		accident.setDamagePrice(tempDamagePrice);
 		accident.setInsuranceIdx(insuranceIdx);
 		// 이 고객으로 부터 가입한 보험 가지고오기
 		this.lists.addAccident(accident);
@@ -254,42 +269,49 @@ public class SUser {
 	}
 
 	public boolean checkAccident() {
-	System.out.println("------접수한 사고에 대한 결과입니다------");
-    List<String> accidentLists = new ArrayList<>();
-    long accidentIdx = 0;
-    
-	System.out.println();
-	System.out.println("피해 금액 보상안 산정 중인 사고 내역");
-	//compensationPRice 가 null 값이 자바에는 0으로 인식
-	//보상금액 처리가 완료된 것은 1로 표시하여 구분
-    for (int i = 0; i < this.lists.getAccidentList().size(); i++) {
-        if (this.lists.getAccidentList().get(i).getCompensationPrice() > 1
-              && this.lists.getAccidentList().get(i).getUserIdx() == this.user.getUserIdx()) {
-        	accidentLists.add(this.lists.getAccidentList().get(i).toStringAll());
-        }
-     }
-    for(String accidentList : accidentLists) {
-    	System.out.println(accidentList);
-    }
-    
-	System.out.println();
-	System.out.println("처리된 신고 내역");
-	   
-    for (int i = 0; i < this.lists.getAccidentList().size(); i++) {
-         if (this.lists.getAccidentList().get(i).isCheckAccident() == true
-               && this.lists.getAccidentList().get(i).getUserIdx() == this.user.getUserIdx()) {
-           System.out.println(this.lists.getAccidentList().get(i).toStringAll());
-           accidentIdx = this.lists.getAccidentList().get(i).getAccidentIdx();
-            if(accidentIdx !=0) {
-                if (Util.IntReader("소송하시겠습니까? 소송 1 미소송 2") == 1) {
-                    this.lists.modifyLawsuitStatus(accidentIdx);
-                    System.out.println("성공적으로 소송 되었습니다.");
-                 }
-            }
-         }
-      }
+		System.out.println("------접수한 사고에 대한 결과입니다------");
+		List<String> accidentLists = new ArrayList<>();
+		long accidentIdx = 0;
 
- 		return true;
+		System.out.println();
+		System.out.println("피해 금액 보상안 산정 중인 사고 내역");
+		// compensationPRice 가 null 값이 자바에는 0으로 인식
+		// 보상금액 처리가 완료된 것은 1로 표시하여 구분
+		for (int i = 0; i < this.lists.getAccidentList().size(); i++) {
+			if (this.lists.getAccidentList().get(i).getCompensationPrice() > 1
+					&& this.lists.getAccidentList().get(i).getUserIdx() == this.user.getUserIdx()) {
+				System.out.println("[사고번호] : " + this.lists.getAccidentList().get(i).getAccidentIdx());
+				System.out.println("[사고날짜] : " + this.lists.getAccidentList().get(i).getAccidentDate());
+				System.out.println("[사고유형] : " + this.lists.getAccidentList().get(i).getAccidenttype());
+				System.out.println("[사고내용] : " + this.lists.getAccidentList().get(i).getContent());
+				System.out.println("[피해금액] : " + this.lists.getAccidentList().get(i).getDamagePrice());
+				System.out.println("----------------------------------------");
+			}
+		}
+
+		System.out.println();
+		System.out.println("처리된 신고 내역");
+
+		for (int i = 0; i < this.lists.getAccidentList().size(); i++) {
+			if (this.lists.getAccidentList().get(i).isCheckAccident() == true
+					&& this.lists.getAccidentList().get(i).getUserIdx() == this.user.getUserIdx()) {
+				System.out.println("[사고번호] : " + this.lists.getAccidentList().get(i).getAccidentIdx());
+				System.out.println("[사고날짜] : " + this.lists.getAccidentList().get(i).getAccidentDate());
+				System.out.println("[사고유형] : " + this.lists.getAccidentList().get(i).getAccidenttype());
+				System.out.println("[사고내용] : " + this.lists.getAccidentList().get(i).getContent());
+				System.out.println("[피해금액] : " + this.lists.getAccidentList().get(i).getDamagePrice());
+				System.out.println("[보상금액] : " + this.lists.getAccidentList().get(i).getCompensationPrice());
+				accidentIdx = this.lists.getAccidentList().get(i).getAccidentIdx();
+				if (accidentIdx != 0) {
+					if (Util.IntReader("소송하시겠습니까? 소송 1 미소송 2") == 1) {
+						this.lists.modifyLawsuitStatus(accidentIdx);
+						System.out.println("성공적으로 소송 되었습니다.");
+					}
+				}
+			}
+		}
+
+		return true;
 	}
 
 	public Lists getLists() {
