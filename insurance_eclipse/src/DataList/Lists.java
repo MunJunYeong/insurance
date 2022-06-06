@@ -59,6 +59,15 @@ public class Lists {
 	public List<Accident> getAccidentList() {
 		return this.accidentList.getAccidentList();
 	}
+	public List<Accident> getAccidentNotCompensation() {
+		List<Accident> temp = new ArrayList<Accident>();
+		for(Accident accident : this.accidentList.getAccidentList()) {
+			if(accident.getCompensationPrice() == 0) {
+				temp.add(accident);
+			}
+		}
+		return temp;
+	}
 	public List<Contract> getContractList() {
 		return this.contractList.getContractList();
 	}
@@ -250,7 +259,7 @@ public class Lists {
 		List<Contract> temp = new ArrayList<Contract>();
 		for(Contract contract : this.getCompleteContract()) {
 			if(!(contract.isCheckPay())) {
-				System.out.println(contract.isCheckPay());
+				//System.out.println(contract.isCheckPay());
 				temp.add(contract);
 			}
 		}
@@ -355,6 +364,9 @@ public class Lists {
 		}
 		return res.get(0).getInsuranceIdx();
 	}
+
+
+
 
 
 }

@@ -243,11 +243,26 @@ public class Salesman {
 	         System.out.println(
 	               contract.getContractIdx() + "        " + contract.getUserIdx() + "        " + contract.getEmployeeIdx());
 	      }
-	      int contractIdx = Util.IntReader("최종 승인할 계약 번호를 입력해주세요.");
-	      // contractIdx validation
-	      this.lists.modifyCompleted((long) contractIdx);
-	      // 여기서 보험을 가지고와서 rate period fee 가지고오기
-	      System.out.println("최종 계약 처리되었습니다.");
+	      boolean checkInt = false;
+	      int contractIdx = -1;
+	      while(!checkInt) {
+	          if(contractIdx == -1) {
+	        	  contractIdx = Util.IntReader("최종 승인할 계약 번호를 입력해주세요.");
+	          }
+	          if(contractIdx != -1) {
+	             checkInt = true;
+	          }
+	       }
+	      for (Contract contract : contractList) {
+	    	  if (contract.getContractIdx() == contractIdx) {
+	    		  this.lists.modifyCompleted((long) contractIdx);
+	    	      // 여기서 보험을 가지고와서 rate period fee 가지고오기
+	    	      System.out.println("최종 계약 처리되었습니다.");
+	    	      return;
+				}
+		  }
+	      System.out.println("입력한 계약번호가 존재하지 않습니다.");
+	      // contractIdx validation	     
 	      System.out.println();
 	   }
 

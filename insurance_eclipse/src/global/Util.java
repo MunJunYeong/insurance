@@ -9,7 +9,7 @@ public class Util {
 	   public static int IntReader(String data) {
 	      BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 	      System.out.println(data);
-	      try {
+	      try {   	
 	         return Integer.parseInt(br.readLine().trim());
 	      } catch (NumberFormatException | IOException e) {
 	         System.out.println("잘못입력하였습니다. 다시 입력해주세요.");
