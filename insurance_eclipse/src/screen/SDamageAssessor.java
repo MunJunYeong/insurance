@@ -23,9 +23,11 @@ public class SDamageAssessor {
 		boolean check = false;
 		while (!check) {
 			System.out.println("---------------DamageAssessor---------------");
-			System.out.println("1. 사고 리스트 확인하기");
-			System.out.println("2. 사고 손해 배상금 책정하기");
-			int select = Util.IntReader("3. 로그아웃 하기");
+			System.out.println();
+			System.out.println(this.employee.getName() + "님이 접속했습니다.");
+			System.out.println("1. 승인된 사고 내역 보기");
+			System.out.println("2. 사고 손해 배상금 책정");
+			int select = Util.IntReader("3. 로그아웃");
 
 			switch (select) {
 			case 1:
@@ -105,10 +107,11 @@ public class SDamageAssessor {
 		}
 		System.out.println("----------------------------------");
 		for (Accident accident : list) {
+			if(accident.isCheckAccident()) {
 			System.out.println("[사고번호] : " + accident.getAccidentIdx());
 			System.out.println("[사고유형] : " + accident.getAccidenttype());
 			System.out.println("----------------------------------");
-
+			}
 		}
 	}
 

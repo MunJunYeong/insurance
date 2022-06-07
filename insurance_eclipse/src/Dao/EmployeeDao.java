@@ -80,7 +80,6 @@ public class EmployeeDao extends Dao{
 	
 	public boolean modifyEmployeeGrade(Long employeeIdx, String grade) {
 		String sql = "update insurance.employee set grade= "+ "'"+ grade  +"'  where employeeIdx = " + employeeIdx + ";";
-		System.out.println(sql);
 		return super.update(sql);
 	}
 

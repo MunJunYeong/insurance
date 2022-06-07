@@ -27,9 +27,11 @@ public class SManager {
 
 		while (!check) {
 			System.out.println("---------------Manager---------------");
-			System.out.println("1. 보험금 미납자 리스트 확인하기.");
-			System.out.println("2. 만기계약 대상자를 관리한다.");
-			int select = Util.IntReader("3. 로그아웃 하기");
+			System.out.println();
+			System.out.println(this.employee.getName() + "님이 접속했습니다.");
+			System.out.println("1. 보험금 미납자 관리");
+			System.out.println("2. 만기계약 대상자 관리");
+			int select = Util.IntReader("3. 로그아웃");
 			
 			switch(select) {
 			case 1:
@@ -55,6 +57,7 @@ public class SManager {
 		}
 		for(Contract contract : contractList) {
 			System.out.println("[계약 번호] : " + contract.getContractIdx()  + "  [고객 번호] : " + contract.getUserIdx() + "  [계약 날짜] : " + contract.getCreated());
+			System.out.println("--------------------");
 		}
 		boolean flag = false;
 		long userIdx = (long) Util.IntReader("만기계약을 알릴 고객 번호를 입력하세요. 뒤로가기(0)");
@@ -76,7 +79,7 @@ public class SManager {
 			User user = this.lists.getUser(userIdx);
 			//이메일 보내는거 짜기
 			System.out.println(user.getEmail()+ " 메일 전송을 성공했습니다. ");
-		}
+		} else System.out.println("이메일 전송이 미승인되었습니다.");
 	}
 	
 	private void ShowPayNotList() {
@@ -107,7 +110,7 @@ public class SManager {
 			User user = this.lists.getUser(userIdx);
 			//이메일 보내는거 짜기
 			System.out.println(user.getEmail()+ " 메일 전송을 성공했습니다. ");
-		}
+		} else System.out.println("이메일 전송이 미승인되었습니다.");
 	}
 
 	

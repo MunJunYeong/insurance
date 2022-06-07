@@ -12,7 +12,7 @@ import screen.SDesigner;
 import screen.SLoginScreen;
 import screen.SManager;
 import screen.SMarketer;
-import screen.Salesman;
+import screen.SSalesman;
 import screen.SSignUpScreen;
 import screen.SUw;
 import screen.SUser;
@@ -111,7 +111,7 @@ public class RunFrame {
 			this.lists = marketer.getLists();
 			return true;
 		case "Salesman":
-			Salesman salesman = new Salesman(employee, lists);
+			SSalesman salesman = new SSalesman(employee, lists);
 			this.lists = salesman.getLists();
 			return true;
 		case "UW":

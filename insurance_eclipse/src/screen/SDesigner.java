@@ -27,11 +27,13 @@ public class SDesigner {
 	public void DesignerMain() {
 		boolean check = false;
 		while (!check) {
-			System.out.println("---------------UW---------------");
-			System.out.println("1. 화재 보험 개발하기");
-			System.out.println("2. 실손 의료비 보험 개발하기");
-			System.out.println("3. 자동차 보험 개발하기");
-			System.out.println("4. 여행 보험 개발하기");
+			System.out.println("---------------Designer---------------");
+			System.out.println();
+			System.out.println(this.employee.getName() + "님이 접속했습니다.");
+			System.out.println("1. 화재 보험 개발");
+			System.out.println("2. 실손 의료비 보험 개발");
+			System.out.println("3. 자동차 보험 개발");
+			System.out.println("4. 여행 보험 개발");
 			int select = Util.IntReader("5. 로그아웃");
 			switch(select) {
 			case 1:
@@ -58,7 +60,10 @@ public class SDesigner {
 
 	private void addTravelInsurance() {
 		Travel travel = new Travel();
-		travel.setContent(Util.StringReader("내용: "));
+		System.out.println("뒤로가려면 0을 입력해주세요.");
+		String content = Util.StringReader("내용: ");
+		if(content.equals("0")) return;
+		travel.setContent(content);
 		travel.setFee(Util.IntReader("요금: "));
 		travel.setMaxReward(Util.IntReader("최대 보상금: "));
 		travel.setPeriod(Util.IntReader("기간: "));
@@ -71,7 +76,10 @@ public class SDesigner {
 
 	private void addCarInsurance() {
 		Car car = new Car();
-		car.setContent(Util.StringReader("내용: "));
+		System.out.println("뒤로가려면 0을 입력해주세요.");
+		String content = Util.StringReader("내용: ");
+		if(content.equals("0")) return;
+		car.setContent(content);
 		car.setFee(Util.IntReader("요금: "));
 		car.setMaxReward(Util.IntReader("최대 보상금: "));
 		car.setPeriod(Util.IntReader("기간: "));
@@ -86,7 +94,10 @@ public class SDesigner {
 
 	private void addHealthInsurance() {
 		Health health = new Health();
-		health.setContent(Util.StringReader("내용: "));
+		System.out.println("뒤로가려면 0을 입력해주세요.");
+		String content = Util.StringReader("내용: ");
+		if(content.equals("0")) return;
+		health.setContent(content);
 		health.setFee(Util.IntReader("요금: "));
 		health.setMaxReward(Util.IntReader("최대 보상금: "));
 		health.setPeriod(Util.IntReader("기간: "));
@@ -98,11 +109,14 @@ public class SDesigner {
 
 	private void addFireInsurance() {
 		Fire fire = new Fire();
-		fire.setContent(Util.StringReader("내용: "));
+		System.out.println("뒤로가려면 0을 입력해주세요.");
+		String content = Util.StringReader("내용: ");
+		if(content.equals("0")) return;
+		fire.setContent(content);
 		fire.setFee(Util.IntReader("요금: "));
 		fire.setMaxReward(Util.IntReader("최대 보상금: "));
 		fire.setPeriod(Util.IntReader("기간: "));
-		fire.setRate(1);
+		fire.setRate(Util.IntReader("요율: "));
 		fire.setEmployeeIdx(this.employee.getEmployeeIdx());
 		//fire 부분
 		fire.setBuildingCount(Util.IntReader("건물개수: "));

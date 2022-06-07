@@ -26,9 +26,11 @@ public class SUw {
 		boolean check = false;
 		while (!check) {
 			System.out.println("---------------UW---------------");
-			System.out.println("1. 인수 정책 수립하기");
-			System.out.println("2. 인수 정책 리스트 확인");
-			System.out.println("3. 인수 검사 리스트 확인 / 승인 하기");
+			System.out.println();
+			System.out.println(this.employee.getName() + "님이 접속했습니다.");
+			System.out.println("1. 인수 정책 수립");
+			System.out.println("2. 인수 정책 확인");
+			System.out.println("3. 인수 심사 진행");
 			int select = Util.IntReader("4. 로그아웃");
 
 			switch (select) {
@@ -51,11 +53,32 @@ public class SUw {
 		}
 	}
 	private void addUwRule() {
+		boolean flag = false;
+		boolean flag2 = false;
 		UwRule uwRule = new UwRule();
-		uwRule.setTitle(Util.StringReader("인수정책 제목: "));
-		uwRule.setContent(Util.StringReader("인수정책 내용: "));
+		System.out.println("뒤로가려면 0을 입력해주세요.");
+		String RTitle = Util.StringReader("인수정책 제목: ");
+		if(RTitle.equals("0")) return;
+		while(!flag) {
+			if(!RTitle.equals("")) {
+				flag = true;
+				break;
+			} else RTitle = Util.StringReader("제목을 입력하지 않으셨습니다.\n제목을 입력해주세요: ");
+		}
+		uwRule.setTitle(RTitle);
+		System.out.println("뒤로가려면 0을 입력해주세요.");
+		String RContent = Util.StringReader("인수정책 내용: ");
+		if(RContent.equals("0")) return;
+		while(!flag2) {
+			if(!RContent.equals("")) {
+				flag2 = true;
+				break;
+			} else RContent = Util.StringReader("내용을 입력하지 않으셨습니다.\n내용을 입력해주세요: ");
+		}
+		uwRule.setContent(RContent);
 		uwRule.setEmployeeIdx(this.employee.getEmployeeIdx());
 		this.lists.addUwRule(uwRule);
+		System.out.println("인수정책 수립이 완료되었습니다.");
 	}
 
 	public boolean getUwRule() {
@@ -65,14 +88,17 @@ public class SUw {
 			System.out.println("등록된 인수 정책이 없습니다.");
 			return false;
 		}
-		System.out.println("[정책 번호]   " + "[정책 제목]   "+ "[정책 내용]   "+ "[직원 번호]");
+		
 		for (UwRule temp : uwRuleList) {
-			String message = "   " + 
-					temp.getUwRuleIdx() + "         " + 
-					temp.getTitle() + "         "+
-					temp.getContent() + "         "+
-					temp.getEmployeeIdx() + "\n";
-			System.out.println(message);
+			System.out.println("[정책 번호]");
+			System.out.println(temp.getUwRuleIdx());
+			System.out.println("[정책 제목]");
+			System.out.println(temp.getTitle());
+		    System.out.println("[정책 내용]");
+		    System.out.println(temp.getContent());
+		    System.out.println("[직원 번호]");
+		    System.out.println(temp.getEmployeeIdx());
+		    System.out.println("-----------------------------------------");
 		}
 		return true;
 	
@@ -84,8 +110,9 @@ public class SUw {
 			System.out.println("인수 검사할 계약이 없습니다.");
 			return false;
 		}
-		System.out.println("[계약번호]   " + "[고객번호]");
+		
 		for (Contract temp : contractList) {
+			System.out.println("[계약번호]   " + "[고객번호]");
 			String message = "   " + temp.getContractIdx() + "         " + temp.getUserIdx();
 			System.out.println(message);
 			System.out.println("[제안서] : " + temp.getSuggestion());
@@ -120,6 +147,7 @@ public class SUw {
 			System.out.println();
 			return true;
 		}else {
+			this.lists.deleteContract(contract.getContractIdx());
 			System.out.println("미승인 처리되었습니다.");
 			return false;
 		}
