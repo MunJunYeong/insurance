@@ -16,13 +16,13 @@ import insurance.Insurance;
 import insurance.Travel;
 import user.User;
 
-public class Salesman {
+public class SSalesman {
 
 	private Employee employee;
 	private Lists lists;
 	private int fee;
 
-	public Salesman(Employee employee, Lists lists) {
+	public SSalesman(Employee employee, Lists lists) {
 
 		this.employee = employee;
 		this.lists = lists;
@@ -36,9 +36,9 @@ public class Salesman {
 			System.out.println("---------------SalesMan---------------");
 			System.out.println();
 			System.out.println(this.employee.getName() + "님이 접속했습니다.");
-			System.out.println("1. 고객 리스트 확인하기");
-			System.out.println("2. 최종 계약 리스트  승인하기");
-			System.out.println("3. 완성 계약 리스트 확인하기");
+			System.out.println("1. 제안서/청약서 작성");
+			System.out.println("2. 최종 계약 리스트 승인");
+			System.out.println("3. 완성 계약 리스트 확인");
 			int select = Util.IntReader("4. 로그아웃");
 
 			switch (select) {
@@ -74,7 +74,7 @@ public class Salesman {
 		}
 		for (int i = 0; i < userList.size(); i++) {
 			User temp = userList.get(i);
-			   sb.append("[UserIdx: " + temp.getUserIdx() + "] ").append("[이름: " + temp.getName() + "] ").append("[성별: " + SexToString(temp.isSex()) + "] ")
+			   sb.append("[유저 번호: " + temp.getUserIdx() + "] ").append("[이름: " + temp.getName() + "] ").append("[성별: " + SexToString(temp.isSex()) + "] ")
                .append("[지역: " + temp.getState() + ", " + temp.getCity() + "] ").append("[직업: " + temp.getJob() + "]\n");
       		}
 		System.out.print(sb);
@@ -92,7 +92,7 @@ public class Salesman {
 				}
 			}
 			if (user == null)
-				System.out.println("존재하지 않는 유저 idx 입니다.");
+				System.out.println("존재하지 않는 유저 번호 입니다.");
 		}
 		// userIdx가 존재하는지도 체크해주는 validation 추가하기
 		int temp = -1;
@@ -167,7 +167,7 @@ public class Salesman {
 						System.out.println(
 								"[보험 번호]: "+ insurance.getInsuranceIdx() + " "+
 									"[요율]:"+ insurance.getRate() + "  " + "[금액]: " + insurance.getFee()+ 
-									"[보험 내용]: " + insurance.getContent()+ "[최대 보상금액]: " + insurance.getMaxReward() +" \n");
+									"  [보험 내용]: " + insurance.getContent()+ "  [최대 보상금액]: " + insurance.getMaxReward() +" \n");
 					}
 					flag = true;
 				} else {
@@ -182,7 +182,7 @@ public class Salesman {
 						System.out.println(
 								"[보험 번호]: "+ insurance.getInsuranceIdx() + " "+
 									"[요율]:"+ insurance.getRate() + "  " + "[금액]: " + insurance.getFee()+ 
-									"[보험 내용]: " + insurance.getContent()+ "[최대 보상금액]: " + insurance.getMaxReward() +" \n");
+									"  [보험 내용]: " + insurance.getContent()+ "  [최대 보상금액]: " + insurance.getMaxReward() +" \n");
 					}
 					flag = true;
 				} else {
@@ -212,7 +212,7 @@ public class Salesman {
 						System.out.println(
 								"[보험 번호]: "+ insurance.getInsuranceIdx() + " "+
 									"[요율]:"+ insurance.getRate() + "  " + "[금액]: " + insurance.getFee()+ 
-									"[보험 내용]: " + insurance.getContent()+ "[최대 보상금액]: " + insurance.getMaxReward() +" \n");
+									"  [보험 내용]: " + insurance.getContent()+ "  [최대 보상금액]: " + insurance.getMaxReward() +" \n");
 					}
 					flag = true;
 				} else {

@@ -41,8 +41,6 @@ public class InsuranceDao extends Dao{
 	}
    
    public boolean addFireInsurance(Fire fire, Long insuranceIdx) {
-	   System.out.println(fire.getBuildingCount());
-	   System.out.println(fire.getBuildingPrice());
 		String sql = "INSERT INTO insurance.fire VALUES("+
 				"'" + insuranceIdx+"', "+
 				"'" + fire.getBuildingCount()+"', "+

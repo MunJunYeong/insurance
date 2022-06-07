@@ -25,8 +25,9 @@ public class SAccidentManager {
 			System.out.println("---------------AccidentManager---------------");
 			// AccidentManager 손해 관리 직원
 			System.out.println();
-			System.out.println("1. 사고 리스트 확인 및 승인하기");
-			int select = Util.IntReader("2. 로그아웃 하기");
+			System.out.println(this.employee.getName() + "님이 접속했습니다.");
+			System.out.println("1. 접수된 사고 내역 확인 및 승인");
+			int select = Util.IntReader("2. 로그아웃");
 			switch (select) {
 			case 1:
 				CheckAccidentList();
@@ -55,7 +56,10 @@ public class SAccidentManager {
 		boolean flag = false;
 		Accident accident = null;
 		while (!flag) {
+			System.out.println("");
+			System.out.println("뒤로 가려면 0을 입력해주세요");
 			int accidentNum = Util.IntReader("사고 번호를 입력해주세요.");
+			if(accidentNum == 0) return false;
 			accident = this.lists.getAccident(accidentNum);
 			if (accident == null) {
 				System.out.println("사고 번호에 해당하는 사고 신고 내역이 없습니다. 다시 입력해주세요.");

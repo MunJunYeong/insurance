@@ -199,7 +199,7 @@ public class Lists {
 			if(time.isAfter(tempCreated)) {
 				temp.add(contract);
 			}
-			System.out.println("--------------------");
+			//
 		}
 		return temp;
 	}

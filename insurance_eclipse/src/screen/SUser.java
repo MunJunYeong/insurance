@@ -28,12 +28,12 @@ public class SUser {
 		System.out.println();
 		System.out.println(this.user.getName() + "님이 접속했습니다.");
 		while (!check) {
-			System.out.println("1. 제안서 확인/승인하기");
-			System.out.println("2. 청약서 확인/승인하기");
-			System.out.println("3. 사고 신고 하기");
-			System.out.println("4. 사고 결과 확인/소송 하기");
-			System.out.println("5. 계약금 납입하기");
-			int select = Util.IntReader("6. 로그아웃하기");
+			System.out.println("1. 제안서 확인 및 승인");
+			System.out.println("2. 청약서 확인 및 승인");
+			System.out.println("3. 사고 신고");
+			System.out.println("4. 사고 결과 확인 및 소송");
+			System.out.println("5. 계약금 납입");
+			int select = Util.IntReader("6. 로그아웃");
 
 			switch (select) {
 			case 1:
@@ -155,10 +155,10 @@ public class SUser {
 			return contract.getContractIdx();
 		} else if (suggestionChoice == 2) {
 			System.out.println("미승인 처리 되었습니다.");
-			return -1;
+			return 0;
 		} else {
 			System.out.println("1또는2를 입력해주십시오.");
-			return 0;
+			return -1;
 		}
 	}
 
@@ -202,10 +202,10 @@ public class SUser {
 			return contract.getContractIdx();
 		} else if (subscriptionChoice == 2) {
 			System.out.println("미승인 처리 되었습니다.");
-			return -1;
+			return 0;
 		} else {
 			System.out.println("1또는2를 입력해주십시오.");
-			return 0;
+			return -1;
 		}
 	}
 
@@ -216,8 +216,9 @@ public class SUser {
 		boolean flag = false;
 		long insuranceIdx = -1;
 		while (!flag) {
-			int type = Util.IntReader("화재(1), 자동차(2), 생명(3), 여행(4)");
+			int type = Util.IntReader("화재(1), 자동차(2), 생명(3), 여행(4), 취소(0)");
 			switch (type) {
+			case 0: return false;
 			case 1:
 				insuranceIdx = this.lists.getUserFireList(this.user.getUserIdx());
 				accident.setAccidenttype("Fire");
@@ -241,7 +242,7 @@ public class SUser {
 			default:
 				System.out.println("올바른 번호를 입력해주세요.");
 				break;
-			}
+			} 
 		}
 		if (insuranceIdx == -1) {
 			System.out.println("고객님께서 가입한 보험이 존재하지 않아 사고 신고가 불가능합니다.");
@@ -278,7 +279,7 @@ public class SUser {
 		// compensationPRice 가 null 값이 자바에는 0으로 인식
 		// 보상금액 처리가 완료된 것은 1로 표시하여 구분
 		for (int i = 0; i < this.lists.getAccidentList().size(); i++) {
-			if (this.lists.getAccidentList().get(i).getCompensationPrice() > 1
+			if (this.lists.getAccidentList().get(i).getCompensationPrice() < 1
 					&& this.lists.getAccidentList().get(i).getUserIdx() == this.user.getUserIdx()) {
 				System.out.println("[사고번호] : " + this.lists.getAccidentList().get(i).getAccidentIdx());
 				System.out.println("[사고날짜] : " + this.lists.getAccidentList().get(i).getAccidentDate());
