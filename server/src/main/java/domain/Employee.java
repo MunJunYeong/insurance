@@ -25,5 +25,10 @@ public class Employee {
     public Insurance insurance;
     public Accident accident;
 
+    public void 계약서작성(){
 
+    }
+    public  void 청약서작성(){
+
+    }
 }

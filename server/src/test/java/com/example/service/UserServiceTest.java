@@ -7,6 +7,7 @@ import org.assertj.core.api.Assertions;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.SpringBootConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -16,6 +17,7 @@ import service.user.UserListImpl;
 
 import javax.persistence.EntityManager;
 
+@SpringBootConfiguration
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @Transactional
@@ -25,7 +27,7 @@ public class UserServiceTest {
     @Autowired UserRepository userRepository;
 
     @Test
-    void addUser() {
+    public void addUser() {
         User user = new User();
         user.setName("회원1");
         user.setAddress(new Address("서울", "영등포구 당산동"));
